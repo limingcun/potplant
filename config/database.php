@@ -36,7 +36,7 @@ return [
         'sqlite' => [
             'driver' => 'sqlite',
             'database' => env('DB_DATABASE', database_path('database.sqlite')),
-            'prefix' => '',
+            'prefix' => 'pot_',
         ],
 
         'mysql' => [
@@ -49,7 +49,7 @@ return [
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
-            'prefix' => '',
+            'prefix' => 'pot_',
             'strict' => true,
             'engine' => null,
         ],
