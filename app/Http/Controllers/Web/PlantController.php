@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Plant;
 
 class PlantController extends Controller
 {
@@ -12,27 +13,10 @@ class PlantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $data = array('path' => 'pages/home/category/category');
-        $data = json_encode($data);
-        $url = 'https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode?access_token=nxVqnnu49DaL627MiaIXtXbkki2AA8VMIbdpojDJqdJQ0e5BYTq7_vKF4AkBtOTm4Dcc7TvydxQObJdLWBGKWDAFMqOUJlHUXWMFFEUPeW_kxlP86Mmc6KaCQywctgt9NLNhAAAJHJ';        
-        $result = $this->send_post($url, $data);
-        file_put_contents('image/pic.jpg',$result);
-    }
-    
-    function send_post($url, $post_data) {
-        $options = array(
-          'http' => array(
-            'method' => 'POST',
-            'header' => 'Content-type:application/json',
-            'content' => $post_data,
-            'timeout' => 15 * 60 // 超时时间（单位:s）
-          )
-        );
-        $context = stream_context_create($options);
-        $result = file_get_contents($url, false, $context);
-        return $result;
+        $list = Plant::find($id);
+        return response()->json($list);
     }
 
 

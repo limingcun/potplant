@@ -15,4 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('plant', 'Web\PlantController');
+Route::group(['prefix' => 'web', 'namespace' => 'Web'], function() {
+    // 前端路由
+    Route::resource('plant/{id}', 'PlantController');
+});
