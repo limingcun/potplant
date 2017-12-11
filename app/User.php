@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];  //deleted_at字段
 
     /**
      * The attributes that are mass assignable.
