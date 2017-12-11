@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Plant;
+use App\PlantTab;
 
 class PlantController extends Controller
 {
@@ -15,8 +16,13 @@ class PlantController extends Controller
      */
     public function index($id)
     {
-        $list = Plant::find($id);
-        return response()->json($list);
+        $plant = Plant::find($id);
+        $plantTab = PlantTab::where('plant_id',$id)->get();
+        return response()->json([
+                'plant' => $plant,
+                'plantTab' => $plantTab
+            ]
+        );
     }
 
 
