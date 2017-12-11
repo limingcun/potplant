@@ -14,8 +14,9 @@ class PlantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index(Request $request)
     {
+        $id = $request->id;
         $plant = Plant::find($id);
         $plantTab = PlantTab::where('plant_id',$id)->get();
         return response()->json([
