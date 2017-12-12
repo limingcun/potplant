@@ -31,7 +31,10 @@ class WebController extends Controller
         );  
         $context = stream_context_create($options);  
         $result = file_get_contents($url, false, $context);
-        return response()->json(json_decode($result));
+        return response()->json([
+            'openid' => json_decode($result),
+            'token' => csrf_token()
+        ]);
     }
     
     /**
