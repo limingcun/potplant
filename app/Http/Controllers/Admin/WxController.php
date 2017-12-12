@@ -19,6 +19,9 @@ class WxController extends Controller
             $user->img = $request->img;
             $user->openid = $request->openid;
             if (!$user->save()) return 500;
+            $st = 'wx_login'.$this->createRandomStr(32);
+            Session::put('st', $st);
+            $user->st = $st;
             return $user;
         } else {
             $data['name'] = $this->createRandomStr(10);
@@ -29,6 +32,9 @@ class WxController extends Controller
             $data['openid'] = $request->openid;
             $data['password'] = bcrypt('000000');
             $result = User::create($data);
+            $st = 'wx_login'.$this->createRandomStr(32);
+            Session::put('st', $st);
+            $user->st = $st;
             return $result;
         }
     }

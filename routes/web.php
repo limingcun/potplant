@@ -22,6 +22,7 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function() {
     Route::get('operate', 'IndexController@getOperate');
 });
 // 后端路由
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth'], function() {
-    Route::post('wxlogin', 'WxController@wxLogin');
+Route::post('admin/wxlogin', 'Admin\WxController@wxLogin');  //微信登录
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'WxAuth'], function() {
+    Route::get('plant', 'PlantController@getPlant');
 });
