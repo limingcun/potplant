@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('get/openid','WebController@getOpenid'); //获取openid
 Route::group(['prefix' => 'home', 'namespace' => 'Home'], function() {
     // 前端路由
     Route::get('plant', 'IndexController@getPlant');
