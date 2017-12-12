@@ -22,6 +22,6 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function() {
     Route::get('operate', 'IndexController@getOperate');
 });
 // 后端路由
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth'], function() {
     Route::post('wxlogin', 'WxController@wxLogin');
 });
