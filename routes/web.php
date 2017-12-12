@@ -16,8 +16,12 @@ Route::get('/', function () {
 });
 
 Route::get('get/openid','WebController@getOpenid'); //获取openid
+// 前端路由
 Route::group(['prefix' => 'home', 'namespace' => 'Home'], function() {
-    // 前端路由
     Route::get('plant', 'IndexController@getPlant');
     Route::get('operate', 'IndexController@getOperate');
+});
+// 后端路由
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
+    Route::get('wxlogin', 'WxController@wxLogin');
 });
