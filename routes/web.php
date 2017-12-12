@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/token',function() {
+    return response()->json(csrf_token());
+});
+
 Route::get('get/openid','WebController@getOpenid'); //获取openid
 // 前端路由
 Route::group(['prefix' => 'home', 'namespace' => 'Home'], function() {
