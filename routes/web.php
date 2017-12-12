@@ -23,5 +23,5 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function() {
 });
 // 后端路由
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
-    Route::get('wxlogin', 'WxController@wxLogin');
+    Route::post('wxlogin', 'WxController@wxLogin');
 });

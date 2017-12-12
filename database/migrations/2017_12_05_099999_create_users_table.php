@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->date('age')->nullable()->comment('出生年月日');
             $table->string('img', 255)->nullable()->comment('头像');
             $table->string('address', 100)->nullable()->comment('地址');
-            $table->string('email', 50)->comment('邮箱');
+            $table->string('email', 50)->nullable()->comment('邮箱');
             $table->string('phone', 20)->nullable()->comment('手机');
             $table->rememberToken();
             $table->softDeletes();
