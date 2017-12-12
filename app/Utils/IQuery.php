@@ -14,9 +14,7 @@ class IQuery{
      ** 净化表单插入数据
      **/
     function cleanInput($input){
-        $clean = strtolower($input);
-        $clean = preg_replace("/[^a-z]/", "", $clean);
-        $clean = substr($clean,0,12);
+        $clean = preg_replace('/\W/','',$input);
         return $clean;
     }
 }
