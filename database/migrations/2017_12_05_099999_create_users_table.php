@@ -17,7 +17,6 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('real_name', 30)->nullable()->comment('姓名');
-            $table->integer('plant_id')->unsigned()->comment('盆栽id');
             $table->string('password');
             $table->string('openid',50)->nullable()->comment('微信openid ');
             $table->tinyInteger('sex')->default(0)->comment('性别 默认0保密，1男，2女');
