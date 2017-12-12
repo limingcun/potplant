@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Plant;
 use App\PlantTab;
-
+use IQuery;
 class PlantController extends Controller
 {
     /**
