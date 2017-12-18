@@ -20,8 +20,13 @@ class PlantController extends Controller
         } 
         if(isset($request->endDate)) {
             $plant = $plant->where('plants.created_at','<=',$request->endDate);
-        } 
-        $plant = $plant->select('plants.*')->get();
+        }
+        $page = IQuery::cleanInput($request->page);
+        $page = isset($page) ? $page : '';
+        if($page != '') {
+            $request->merge(['page'=>$page]);
+        }
+        $plant = $plant->select('plants.*')->paginate(config('app.page'));
         return response()->json($plant);
     }
 }
