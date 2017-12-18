@@ -10,6 +10,10 @@ use IQuery;
 
 class PlantController extends Controller
 {
+    /*
+     * 盆栽列表数据
+     * params:[openid:微信id,startDate:开始时间,endDate:结束时间,page:分页]
+     */
     public function index(Request $request) {
         $openid = IQuery::cleanInput($request->openid);
         $plant = Plant::join('plant_users','plants.id','=','plant_users.plant_id')
@@ -28,5 +32,17 @@ class PlantController extends Controller
         }
         $plant = $plant->select('plants.*')->paginate(config('app.page'));
         return response()->json($plant);
+    }
+    /*
+     * 删除盆栽列表数据
+     * id:列表id数据
+     */
+    public function destroy($id) {
+        $plant = Plant::find($id);
+        if($plant->delete()) {
+            return response()->json('true');
+        } else {
+            return response()->json('false');
+        }
     }
 }
