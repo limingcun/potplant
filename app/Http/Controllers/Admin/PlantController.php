@@ -38,6 +38,7 @@ class PlantController extends Controller
      * id:列表id数据
      */
     public function destroy($id) {
+        return $id;
         $plant = Plant::find($id);
         if($plant->delete()) {
             return response()->json('true');
