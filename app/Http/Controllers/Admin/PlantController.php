@@ -30,7 +30,7 @@ class PlantController extends Controller
         if($page != '') {
             $request->merge(['page'=>$page]);
         }
-        $plant = $plant->orderBy('plants.created_at')->select('plants.*')->paginate(config('app.page'));
+        $plant = $plant->orderBy('plants.created_at', 'desc')->select('plants.*')->paginate(config('app.page'));
         return response()->json($plant);
     }
     /*
