@@ -16,10 +16,10 @@ class PlantController extends Controller
                 ->join('users','plant_users.user_id','=','users.id')
                 ->where('users.openid',$openid);
         if(isset($request->startDate)) {
-            $plant = where('plants.created_at','>=',$request->startDate);
+            $plant = $plant->where('plants.created_at','>=',$request->startDate);
         } 
         if(isset($request->endDate)) {
-            $plant = where('plants.created_at','<=',$request->endDate);
+            $plant = $plant->where('plants.created_at','<=',$request->endDate);
         } 
         $plant = $plant->select('plants.*')->get();
         return response()->json($plant);
