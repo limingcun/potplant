@@ -14,7 +14,8 @@ class PlantController extends Controller
         $openid = IQuery::cleanInput($request->openid);
         $plant = Plant::join('plant_users','plants.id','=','plant_users.plant_id')
                 ->join('users','plant_users.user_id','=','users.id')
-                ->where('users.openid',$openid)->get();
+                ->where('users.openid',$openid)
+                ->select('plants.*')->get();
         return response()->json($plant);
     }
 }
