@@ -30,7 +30,7 @@ class PlantController extends Controller
         if($page != '') {
             $request->merge(['page'=>$page]);
         }
-        $plant = $plant->select('plants.*')->paginate(config('app.page'));
+        $plant = $plant->orderBy('plants.created_at')->select('plants.*')->paginate(config('app.page'));
         return response()->json($plant);
     }
     /*
@@ -38,7 +38,6 @@ class PlantController extends Controller
      * id:列表id数据
      */
     public function destroy($id) {
-        return $id;
         $plant = Plant::find($id);
         if($plant->delete()) {
             return response()->json('true');
