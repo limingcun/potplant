@@ -12,7 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        'admin/wxlogin',
-        'admin/plant'
+        'admin/wxlogin'
+//        'admin/plant'
     ];
 }
