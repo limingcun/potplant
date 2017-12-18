@@ -13,7 +13,7 @@ class PlantController extends Controller
     public function index(Request $request) {
         $openid = IQuery::cleanInput($request->openid);
         $plant = Plant::join('plant_users','plants.id','=','plant_users.plant_id')
-                ->where('users','plant_users.user_id','=','users.id')
+                ->join('users','plant_users.user_id','=','users.id')
                 ->where('users.openid',$openid)->get();
         return response()->json($plant);
     }
