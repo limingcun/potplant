@@ -8,6 +8,7 @@ use App\Plant;
 use App\PlantTab;
 use App\Operate;
 use IQuery;
+use Session;
 class IndexController extends Controller
 {
     /**
@@ -38,5 +39,10 @@ class IndexController extends Controller
         $type = IQuery::cleanInput($request->type);
         $operate = Operate::where('plant_id', $plant_id)->where('type',$type)->get();
         return response()->json($operate);
+    }
+    
+    public function test() {
+        $st = Session::get('st');
+        return $st;
     }
 }
