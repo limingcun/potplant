@@ -11,3 +11,5 @@ npm-debug.log
 yarn-error.log
 .env
 /nbproject/private/
+/public/image/plant
+/public/image/operate
