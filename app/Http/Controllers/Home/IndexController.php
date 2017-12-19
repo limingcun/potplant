@@ -43,6 +43,6 @@ class IndexController extends Controller
     
     public function test() {
         $st = Session::get('st');
-        return $st;
+        return $st.'7777';
     }
 }
