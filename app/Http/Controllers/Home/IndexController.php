@@ -40,9 +40,11 @@ class IndexController extends Controller
         $operate = Operate::where('plant_id', $plant_id)->where('type',$type)->get();
         return response()->json($operate);
     }
-    
+    public function aaa() {
+        Session::put('st1','7657464');
+    }
     public function test() {
-        $st = Session::get('st');
+        $st = Session::get('st1');
         return $st.'7777';
     }
 }
