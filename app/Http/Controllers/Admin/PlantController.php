@@ -67,7 +67,7 @@ class PlantController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'content' => 'required|max:2000',
+            'intro' => 'required|max:2000',
             'img' => 'required'
         ]);
         if ($id == -1) {
@@ -75,7 +75,7 @@ class PlantController extends Controller
         } else {
             $model = Plant::find($id);
         }
-        $arr = ['content', 'name', 'img'];
+        $arr = ['intro', 'name', 'img'];
         $model->setRawAttributes($request->only($arr));
         
         if ($model->save()) {
