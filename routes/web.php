@@ -24,5 +24,7 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function() {
 // 后端路由
 Route::post('admin/wxlogin', 'Admin\WxController@wxLogin');  //微信登录
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
+    // 盆栽接口
     Route::resource('plant', 'PlantController');
+    Route::get('plant/img', 'PlantController@uploadImg');
 });

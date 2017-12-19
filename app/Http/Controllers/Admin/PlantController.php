@@ -45,4 +45,53 @@ class PlantController extends Controller
             return response()->json('false');
         }
     }
+    
+    /*
+     * 新增保存
+     */
+    public function store(Request $request)
+    {
+        return $this->storeOrUpdate($request);
+    }
+
+    /*
+     * 编辑保存
+     */
+    public function update(Request $request, $id)
+    {
+        return $this->storeOrUpdate($request, $id);
+    }
+
+    // 新建、编辑 保存方法
+    public function storeOrUpdate(Request $request, $id = -1)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'content' => 'required|max:2000',
+            'img' => 'required'
+        ]);
+        if ($id == -1) {
+            $model = new Plant;
+        } else {
+            $model = Plant::find($id);
+        }
+        $arr = ['content', 'name', 'img'];
+        $model->setRawAttributes($request->only($arr));
+        
+        if ($model->save()) {
+            return response()->json('true');
+        } else {
+            return response()->json('false');
+        }
+    }
+    
+    /*
+     * 上传图片接口
+     */
+    public function uploadImg(Request $request)
+    {
+        $img = 'img';
+        $pic = IQuery::setImg($request,$img,'image/plant/','plt_');
+        return $pic;
+    }
 }
