@@ -150,7 +150,8 @@ class PlantController extends Controller
                     return response()->json([
                         'plt_ids' => $plt_ids,
                         'res' => $keyArr[1],
-                        'dif' => $dif
+                        'dif' => $dif,
+                        'id' => $id
                     ]);
                     if(count($dif)) {
                         $plant_tab = PlantTab::where('plant_id', $id);
