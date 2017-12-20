@@ -147,6 +147,7 @@ class PlantController extends Controller
                     }
                     $plt_ids = $this->getIdArr($id);
 //                    $dif = array_diff($plt_ids,$keyArr[1]);
+                    DB::rollBack();
                     return response()->json([
                         'plt_ids' => $plt_ids
 //                        'dif' => $dif,
