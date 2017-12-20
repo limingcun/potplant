@@ -87,6 +87,8 @@ class PlantController extends Controller
         } else {
             $model = Plant::find($id);
         }
+        $keyArr = $this->getKeyVal($request);
+        return response()->json($keyArr);
         $arr = ['intro', 'name', 'img'];
         $model->setRawAttributes($request->only($arr));
         DB::beginTransaction();
@@ -114,5 +116,23 @@ class PlantController extends Controller
         $img = 'img';
         $pic = IQuery::setImg($request,$img,'image/plant/','plt_');
         return $pic;
+    }
+    
+    /*
+     * 获取key value
+     */
+    public function getKeyVal($request) {
+        $arr = [];
+        for($i=0; $i<9999; $i++) {
+            $key = 'key'.$i;
+            $value = 'value'.$i;
+            if(isset($request->$key) && isset($request->$value)) {
+                $arr[$i]['key'] = $request->$key;
+                $arr[$i]['value'] = $request->$value;
+            } else {
+                break;
+            }
+        }
+        return $arr;
     }
 }
