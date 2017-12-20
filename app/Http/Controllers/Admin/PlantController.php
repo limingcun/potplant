@@ -129,6 +129,20 @@ class PlantController extends Controller
                 }
             } else {
                 if (count($keyArr[0])>0) {
+                    $plt_ids = $this->getIdArr($id);
+                    $dif = array_diff($plt_ids,$keyArr[1]);
+//                    DB::rollBack();
+                    return response()->json([
+                        'plt_ids' => $plt_ids,
+                        'dif' => $dif
+                    ]);
+                    if(count($dif)) {
+                        $plant_tab = PlantTab::where('plant_id', $id);
+                        if(!$plant_tab::destroy($dif)) {
+                            DB::rollBack();
+                            return response()->json('false');
+                        }
+                    }
                     foreach($keyArr[0] as $ka) {
                         if (isset($ka['id'])) {
                             $plant_tab = PlantTab::find($ka['id']);
@@ -145,22 +159,8 @@ class PlantController extends Controller
                             return response()->json('false');
                         }
                     }
-                    $plt_ids = $this->getIdArr($id);
-                    $dif = array_diff($plt_ids,$keyArr[1]);
-//                    DB::rollBack();
-                    return response()->json([
-                        'plt_ids' => $plt_ids,
-                        'dif' => $dif
-                    ]);
-                    if(count($dif)) {
-                        $plant_tab = PlantTab::where('plant_id', $id);
-                        if(!$plant_tab::destroy($dif)) {
-                            DB::rollBack();
-                            return response()->json('false');
-                        }
-                    }
                 }
-                DB::commit();
+//                DB::commit();
                 return response()->json('true');
             }
         } else {
