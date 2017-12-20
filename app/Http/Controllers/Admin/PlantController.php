@@ -128,7 +128,8 @@ class PlantController extends Controller
                     return response()->json('false');
                 }
             } else {
-                
+                DB::commit();
+                return response()->json('true');
             }
         } else {
             return response()->json('false');
