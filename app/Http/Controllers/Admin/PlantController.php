@@ -42,6 +42,7 @@ class PlantController extends Controller
      */
     public function destroy($id) {
         $plant = Plant::find($id);
+        IQuery::delMosImg($plant->img);
         if($plant->delete()) {
             return response()->json('true');
         } else {
