@@ -9,6 +9,7 @@ namespace App\Utils;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Redis;
+use App\User;
 
 class IQuery{
      /**
@@ -64,5 +65,14 @@ class IQuery{
             $resTime = config('app.redis_time');
         }
         Redis::setex(config('app.redis_pre').'_'.$key, $resTime, $val);
+    }
+    
+    /*
+     * 根据openid获取用户信息
+     * $openid 微信id
+     */
+    public function getAuthUser($openid) {
+        $user = User::where('openid',$openid)->first();
+        return $user;
     }
 }

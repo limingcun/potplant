@@ -19,8 +19,7 @@ class WxController extends Controller
             $user->openid = $request->openid;
             if (!$user->save()) return 500;
             $st = 'wx_login_'.$this->createRandomStr(32);
-            IQuery::redisSet('st', $st, 3600 * 24);
-            IQuery::redisSet('openid', $request->openid, 3600 * 24);
+            IQuery::redisSet('st_'.$request->openid, $st, 3600 * 24);
             $user->st = $st;
             return $user;
         } else {
@@ -33,8 +32,7 @@ class WxController extends Controller
             $data['password'] = bcrypt('000000');
             $result = User::create($data);
             $st = 'wx_login_'.$this->createRandomStr(32);
-            IQuery::redisSet('st', $st, 3600 * 24);
-            IQuery::redisSet('openid', $request->openid, 3600 * 24);
+            IQuery::redisSet('st_'.$request->openid, $st, 3600 * 24);
             $result->st = $st;
             return $result;
         }
