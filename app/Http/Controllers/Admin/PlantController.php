@@ -131,14 +131,9 @@ class PlantController extends Controller
                 if (count($keyArr[0])>0) {
                     $plt_ids = $this->getIdArr($id);
                     $dif = array_diff($plt_ids,$keyArr[1]);
-//                    DB::rollBack();
-                    return response()->json([
-                        'plt_ids' => $plt_ids,
-                        'dif' => $dif
-                    ]);
-                    if(count($dif)) {
-                        $plant_tab = PlantTab::where('plant_id', $id);
-                        if(!$plant_tab::destroy($dif)) {
+                    if(count($dif)>0) {
+                        $plantTabs = new PlantTab;
+                        if(!$plantTabs::destroy($dif)) {
                             DB::rollBack();
                             return response()->json('false');
                         }
@@ -160,7 +155,7 @@ class PlantController extends Controller
                         }
                     }
                 }
-//                DB::commit();
+                DB::commit();
                 return response()->json('true');
             }
         } else {
