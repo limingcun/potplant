@@ -146,12 +146,10 @@ class PlantController extends Controller
                         }
                     }
                     $plt_ids = $this->getIdArr($id);
-                    $dif = array_diff($plt_ids,$keyArr[1]);
+//                    $dif = array_diff($plt_ids,$keyArr[1]);
                     return response()->json([
-                        'plt_ids' => $plt_ids,
-                        'res' => $keyArr[1],
-                        'dif' => $dif,
-                        'id' => $id
+                        'plt_ids' => $plt_ids
+//                        'dif' => $dif,
                     ]);
                     if(count($dif)) {
                         $plant_tab = PlantTab::where('plant_id', $id);
