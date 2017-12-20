@@ -131,6 +131,7 @@ class PlantController extends Controller
                 if (count($keyArr[0])>0) {
                     $plt_ids = $this->getIdArr($id);
                     $dif = array_diff($plt_ids,$keyArr[1]);
+                    return response()->json($dif);
                     if(count($dif)>0) {
                         $plantTabs = new PlantTab;
                         if(!$plantTabs::destroy($dif)) {
