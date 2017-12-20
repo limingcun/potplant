@@ -23,6 +23,7 @@ class WxController extends Controller
             Session::put('st', $st);
             Session::put('openid', $request->openid);
             $user->st = $st;
+            $user->session_id = Session::getId();
             return $user;
         } else {
             $data['name'] = $this->createRandomStr(10);
@@ -36,7 +37,8 @@ class WxController extends Controller
             $st = 'wx_login_'.$this->createRandomStr(32);
             Session::put('openid', $request->openid);
             Session::put('st', $st);
-            $user->st = $st;
+            $result->st = $st;
+            $result->session_id = Session::getId();
             return $result;
         }
     }
