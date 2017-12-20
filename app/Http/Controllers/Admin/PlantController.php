@@ -37,6 +37,18 @@ class PlantController extends Controller
         return response()->json($plant);
     }
     /*
+     * 编辑盆栽列表数据
+     * id:列表id数据
+     */
+    public function edit($id) {
+        $plant = Plant::find($id);
+        $plant_tab = PlantTab::where('plant_id',$id)->get();
+        return response()->json([
+            'plant' => $plant,
+            'plant_tab' => $plant_tab
+        ]);
+    }
+    /*
      * 删除盆栽列表数据
      * id:列表id数据
      */
@@ -92,27 +104,31 @@ class PlantController extends Controller
         $model->setRawAttributes($request->only($arr));
         DB::beginTransaction();
         if ($model->save()) {
-            $plant_user = new PlantUser;
-            $plant_user->user_id = IQuery::getAuthUser($request->openid)->id;
-            $plant_user->plant_id = $model->id;
-            if ($plant_user->save()) {
-                if (count($keyArr)>0) {
-                    foreach($keyArr as $ka) {
-                        $plant_tab = new PlantTab;
-                        $plant_tab->key = $ka['key'];
-                        $plant_tab->value = $ka['value'];
-                        $plant_tab->plant_id = $model->id;
-                        if (!$plant_tab->save()) {
-                            DB::rollBack();
-                            return response()->json('false');
+            if ($id == -1) {
+                $plant_user = new PlantUser;
+                $plant_user->user_id = IQuery::getAuthUser($request->openid)->id;
+                $plant_user->plant_id = $model->id;
+                if ($plant_user->save()) {
+                    if (count($keyArr)>0) {
+                        foreach($keyArr as $ka) {
+                            $plant_tab = new PlantTab;
+                            $plant_tab->key = $ka['key'];
+                            $plant_tab->value = $ka['value'];
+                            $plant_tab->plant_id = $model->id;
+                            if (!$plant_tab->save()) {
+                                DB::rollBack();
+                                return response()->json('false');
+                            }
                         }
                     }
+                    DB::commit();
+                    return response()->json('true');
+                } else {
+                    DB::rollBack();
+                    return response()->json('false');
                 }
-                DB::commit();
-                return response()->json('true');
             } else {
-                DB::rollBack();
-                return response()->json('false');
+                
             }
         } else {
             return response()->json('false');
