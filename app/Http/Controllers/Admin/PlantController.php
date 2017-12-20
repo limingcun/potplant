@@ -109,8 +109,8 @@ class PlantController extends Controller
                 $plant_user->user_id = IQuery::getAuthUser($request->openid)->id;
                 $plant_user->plant_id = $model->id;
                 if ($plant_user->save()) {
-                    if (count($keyArr)>0) {
-                        foreach($keyArr as $ka) {
+                    if (count($keyArr[0])>0) {
+                        foreach($keyArr[0] as $ka) {
                             $plant_tab = new PlantTab;
                             $plant_tab->key = $ka['key'];
                             $plant_tab->value = $ka['value'];
@@ -128,6 +128,33 @@ class PlantController extends Controller
                     return response()->json('false');
                 }
             } else {
+                if (count($keyArr[0])>0) {
+                    foreach($keyArr[0] as $ka) {
+                        if (isset($ka['id'])) {
+                            $plant_tab = PlantTab::find($ka['id']);
+                            $plant_tab->key = $ka['key'];
+                            $plant_tab->value = $ka['value'];
+                        } else {
+                            $plant_tab = new PlantTab;
+                            $plant_tab->key = $ka['key'];
+                            $plant_tab->value = $ka['value'];
+                            $plant_tab->plant_id = $id;
+                        }
+                        if (!$plant_tab->save()) {
+                            DB::rollBack();
+                            return response()->json('false');
+                        }
+                    }
+                    $plt_ids = $this->getIdArr($id);
+                    $dif = array_diff($plt_ids,$keyArr[1]);
+                    if(count($dif)) {
+                        $plant_tab = PlantTab::where('plant_id', $id);
+                        if(!$plant_tab::destroy($dif)) {
+                            DB::rollBack();
+                            return response()->json('false');
+                        }
+                    }
+                }
                 DB::commit();
                 return response()->json('true');
             }
@@ -151,15 +178,33 @@ class PlantController extends Controller
      */
     public function getKeyVal($request) {
         $arr = [];
+        $arrId = [];
         for($i=0; $i<9999; $i++) {
             $key = 'key'.$i;
             $value = 'value'.$i;
+            $hid = 'hid'.$i;
             if(isset($request->$key) && isset($request->$value)) {
                 $arr[$i]['key'] = $request->$key;
                 $arr[$i]['value'] = $request->$value;
+                $arr[$i]['id'] = $request->$hid;
+                if (isset($request->$hid)) {
+                    $arrId[] = $request->$hid;
+                }
             } else {
                 break;
             }
+        }
+        return [$arr, $arrId];
+    }
+    
+    /*
+     * 根据id获取数组
+     */
+    public function getIdArr($id) {
+        $arr = [];
+        $plant_tabs = PlantTab::where('plant_id',$id)->select('id')->get();
+        foreach($plant_tabs as $tab) {
+            $arr[] = $tab->id;
         }
         return $arr;
     }
