@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use IQuery;
 use Redirect;
-use Session;
 
 class WxController extends Controller
 {
@@ -20,10 +19,9 @@ class WxController extends Controller
             $user->openid = $request->openid;
             if (!$user->save()) return 500;
             $st = 'wx_login_'.$this->createRandomStr(32);
-            Session::put('st', $st);
-            Session::put('openid', $request->openid);
+            IQuery::redisSet('st', $st, 3600 * 24);
+            IQuery::redisSet('openid', $request->openid, 3600 * 24);
             $user->st = $st;
-            $user->session_id = Session::getId();
             return $user;
         } else {
             $data['name'] = $this->createRandomStr(10);
@@ -35,10 +33,9 @@ class WxController extends Controller
             $data['password'] = bcrypt('000000');
             $result = User::create($data);
             $st = 'wx_login_'.$this->createRandomStr(32);
-            Session::put('openid', $request->openid);
-            Session::put('st', $st);
+            IQuery::redisSet('st', $st, 3600 * 24);
+            IQuery::redisSet('openid', $request->openid, 3600 * 24);
             $result->st = $st;
-            $result->session_id = Session::getId();
             return $result;
         }
     }

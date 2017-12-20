@@ -15,6 +15,8 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
     'page' => 10,
+    'redis_time' => 60,
+    'redis_pre' => 'pot',
     /*
     |--------------------------------------------------------------------------
     | Application Environment

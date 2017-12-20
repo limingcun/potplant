@@ -9,6 +9,7 @@ use Closure;
 use Illuminate\Support\Facades\Auth;
 use App\Model\User;
 use Session;
+use IQuery;
 /*
  * 401 deadline 过期时间
  * 402 expired 登录权限
@@ -18,7 +19,7 @@ class WxAuth {
     // 微信用户登录及权限 中间件
     public function handle($request, Closure $next) {
         // 微信登录状态判断
-        $st = Session::get('st');
+        $st = IQuery::redisGet('st');
         if (isset($st)) {
             if (!isset($request->st)) {
                 return response()->json('notlogin', 402);

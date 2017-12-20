@@ -8,6 +8,7 @@ namespace App\Utils;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Redis;
 
 class IQuery{
      /**
@@ -34,5 +35,34 @@ class IQuery{
             $pic= $filePath;//原图
             return $pic;
         }
+    }
+    
+    /*
+     * 获取redis中get值
+     * $key键值
+     */
+    public function redisGet($key) {
+        $value = Redis::get(config('app.redis_pre').'_'.$key);
+        $value_serl = @unserialize($value);
+        if(is_object($value_serl)||is_array($value_serl)){
+            return $value_serl;
+        }
+        return $value;
+    }
+
+    /*
+     * 设置redis键值
+     * $key键,$val值
+     */
+    public function redisSet($key, $val, $time) {
+        if(is_object($val)||is_array($val)){
+            $val = serialize($val);
+        }
+        if (isset($time)) {
+            $resTime = $time;
+        } else {
+            $resTime = config('app.redis_time');
+        }
+        Redis::setex(config('app.redis_pre').'_'.$key, $resTime, $val);
     }
 }
