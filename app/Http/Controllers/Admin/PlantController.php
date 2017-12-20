@@ -102,7 +102,7 @@ class PlantController extends Controller
         $keyArr = $this->getKeyVal($request);
         $arr = ['intro', 'name', 'img'];
         $model->setRawAttributes($request->only($arr));
-//        DB::beginTransaction();
+        DB::beginTransaction();
         if ($model->save()) {
             if ($id == -1) {
                 $plant_user = new PlantUser;
@@ -128,10 +128,9 @@ class PlantController extends Controller
                     return response()->json('false');
                 }
             } else {
+                $plt_ids = $this->getIdArr($id);
                 if (count($keyArr[0])>0) {
-                    $plt_ids = $this->getIdArr($id);
                     $dif = array_diff($plt_ids,$keyArr[1]);
-                    return response()->json($dif);
                     if(count($dif)>0) {
                         $plantTabs = new PlantTab;
                         if(!$plantTabs::destroy($dif)) {
@@ -151,6 +150,14 @@ class PlantController extends Controller
                             $plant_tab->plant_id = $id;
                         }
                         if (!$plant_tab->save()) {
+                            DB::rollBack();
+                            return response()->json('false');
+                        }
+                    }
+                } else {
+                    if (count($plt_ids)>0) {
+                        $plantTabs = new PlantTab;
+                        if(!$plantTabs::destroy($plt_ids)) {
                             DB::rollBack();
                             return response()->json('false');
                         }
