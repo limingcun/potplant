@@ -19,7 +19,7 @@ class WxAuth {
     // 微信用户登录及权限 中间件
     public function handle($request, Closure $next) {
         // 微信登录状态判断
-        $st = IQuery::redisGet('st');
+        $st = IQuery::redisGet('st_'.$request->openid);
         if (isset($st)) {
             if (!isset($request->st)) {
                 return response()->json('notlogin', 402);
