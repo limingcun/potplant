@@ -209,6 +209,7 @@ class PlantController extends Controller
     public function getIdArr($id) {
         $arr = [];
         $plant_tabs = PlantTab::where('plant_id',$id)->select('id')->get();
+        return $plant_tabs;
         foreach($plant_tabs as $tab) {
             $arr[] = $tab->id;
         }
