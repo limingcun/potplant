@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Plant;
 use IQuery;
+use DB;
+use App\PlantTab;
+use App\PlantUser;
 
 class PlantController extends Controller
 {
@@ -77,9 +80,18 @@ class PlantController extends Controller
         }
         $arr = ['intro', 'name', 'img'];
         $model->setRawAttributes($request->only($arr));
-        
+        DB::beginTransaction();
         if ($model->save()) {
-            return response()->json('true');
+            $plant_user = new PlantUser;
+            $plant_user->user_id = IQuery::getAuthUser($request->openid)->id;
+            $plant_user->plant_id = $model->id;
+            if ($plant_user->save()) {
+                DB::commit();
+                return response()->json('true');
+            } else {
+                DB::rollBack();
+                return response()->json('false');
+            }
         } else {
             return response()->json('false');
         }
