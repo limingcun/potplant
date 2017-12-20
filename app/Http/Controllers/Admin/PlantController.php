@@ -147,10 +147,7 @@ class PlantController extends Controller
                     }
                     $plt_ids = $this->getIdArr($id);
                     $dif = array_diff($plt_ids,$keyArr[1]);
-                    return response()->json([
-                        'plt_ids'=> $plt_ids,
-                        'res' => $keyArr[1]
-                    ]);
+                    return response()->json($dif);
                     if(count($dif)) {
                         $plant_tab = PlantTab::where('plant_id', $id);
                         if(!$plant_tab::destroy($dif)) {
@@ -192,7 +189,7 @@ class PlantController extends Controller
                 $arr[$i]['value'] = $request->$value;
                 $arr[$i]['id'] = $request->$hid;
                 if (isset($request->$hid)) {
-                    $arrId[] = $request->$hid;
+                    $arrId[] = intval($request->$hid);
                 }
             } else {
                 break;
