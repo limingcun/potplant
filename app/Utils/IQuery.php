@@ -75,4 +75,16 @@ class IQuery{
         $user = User::where('openid',$openid)->first();
         return $user;
     }
+    
+    /*
+     * 删除图片
+     * $imgs一张图片路径或多张图片路径组合的字符串
+     */
+    public function delMosImg($imgs) {
+        $imgs = explode(',', $imgs);
+        foreach($imgs as $img) {
+            $img = str_replace("\\","/",public_path().'/'.($img));
+            if (is_file($img)) unlink($img);
+        }
+    }
 }
