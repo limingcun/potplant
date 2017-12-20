@@ -88,7 +88,6 @@ class PlantController extends Controller
             $model = Plant::find($id);
         }
         $keyArr = $this->getKeyVal($request);
-        return response()->json($keyArr);
         $arr = ['intro', 'name', 'img'];
         $model->setRawAttributes($request->only($arr));
         DB::beginTransaction();
@@ -97,6 +96,18 @@ class PlantController extends Controller
             $plant_user->user_id = IQuery::getAuthUser($request->openid)->id;
             $plant_user->plant_id = $model->id;
             if ($plant_user->save()) {
+                if (count($keyArr)>0) {
+                    foreach($keyArr as $ka) {
+                        $plant_tab = new PlantTab;
+                        $plant_tab->key = $ka['key'];
+                        $plant_tab->value = $ka['value'];
+                        $plant_tab->plant_id = $model->id;
+                        if (!$plant_tab->save()) {
+                            DB::rollBack();
+                            return response()->json('false');
+                        }
+                    }
+                }
                 DB::commit();
                 return response()->json('true');
             } else {
