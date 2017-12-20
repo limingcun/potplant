@@ -27,17 +27,14 @@ class IQuery{
      **/
     public function setImg($request, $name, $con, $pre) {
         if ($request->hasFile($name)) {
-            return '5555';
-//            $file = $request->file($name);
-//            $path = $con;
-//            $Extension = $file->getClientOriginalExtension();
-//            $filename = $pre.rand(1000,9999).time().'.'. $Extension;
-//            $check = $file->move($path, $filename);
-//            $filePath = $path.$filename; //原图路径加名称
-//            $pic= $filePath;//原图
-//            return $pic;
-        } else {
-            return '6666';
+            $file = $request->file($name);
+            $path = $con;
+            $Extension = $file->getClientOriginalExtension();
+            $filename = $pre.rand(1000,9999).time().'.'. $Extension;
+            $check = $file->move($path, $filename);
+            $filePath = $path.$filename; //原图路径加名称
+            $pic= $filePath;//原图
+            return $pic;
         }
     }
     
