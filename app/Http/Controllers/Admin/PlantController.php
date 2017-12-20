@@ -102,7 +102,7 @@ class PlantController extends Controller
         $keyArr = $this->getKeyVal($request);
         $arr = ['intro', 'name', 'img'];
         $model->setRawAttributes($request->only($arr));
-        DB::beginTransaction();
+//        DB::beginTransaction();
         if ($model->save()) {
             if ($id == -1) {
                 $plant_user = new PlantUser;
@@ -147,7 +147,7 @@ class PlantController extends Controller
                     }
                     $plt_ids = $this->getIdArr($id);
                     $dif = array_diff($plt_ids,$keyArr[1]);
-                    DB::rollBack();
+//                    DB::rollBack();
                     return response()->json([
                         'plt_ids' => $plt_ids,
                         'dif' => $dif
