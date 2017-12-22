@@ -20,7 +20,7 @@ class OperateController extends Controller
     public function index(Request $request) {
         $plant_id = IQuery::cleanInput($request->plant_id);
         $type = IQuery::cleanInput($request->type);
-        $operate = Operate::where('plant_id',$plant_id);
+        $operate = Operate::where('plant_id',$plant_id)->where('type',$type);
         if(isset($request->startDate)) {
             $operate = $operate->where('datetime','>=',$request->startDate);
         } 
