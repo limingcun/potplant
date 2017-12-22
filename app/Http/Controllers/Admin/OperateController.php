@@ -48,22 +48,14 @@ class OperateController extends Controller
         ]);
     }
     /*
-     * 删除盆栽列表数据
+     * 删除盆栽操作列表数据
      * id:列表id数据
      */
     public function destroy($id) {
-        $plant = Plant::find($id);
-        DB::beginTransaction();
-        IQuery::delMosImg($plant->img);
-        $plant_user = PlantUser::where('plant_id',$id);
-        if ($plant_user->delete()) {
-            if($plant->delete()) {
-                DB::commit();
-                return response()->json('true');
-            } else {
-                DB::rollBack();
-                return response()->json('false');
-            }
+        $operate = Operate::find($id);
+        IQuery::delMosImg($operate->img);
+        if($operate->delete()) {
+            return response()->json('true');
         } else {
             return response()->json('false');
         }
@@ -89,82 +81,21 @@ class OperateController extends Controller
     public function storeOrUpdate(Request $request, $id = -1)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'intro' => 'required|max:2000',
-            'img' => 'required'
+            'datetime' => 'required',
+            'info' => 'required|max:2000'
         ]);
         if ($id == -1) {
-            $model = new Plant;
+            $model = new Operate;
         } else {
-            $model = Plant::find($id);
+            $model = Operate::find($id);
         }
-        $keyArr = $this->getKeyVal($request);
-        $arr = ['intro', 'name', 'img'];
+        $arr = ['info', 'datetime', 'img'];
         $model->setRawAttributes($request->only($arr));
-        DB::beginTransaction();
+        if ($id==-1) {
+            $model->plant_id = IQuery::cleanInput($request->plant_id);
+        }
         if ($model->save()) {
-            if ($id == -1) {
-                $plant_user = new PlantUser;
-                $plant_user->user_id = IQuery::getAuthUser($request->openid)->id;
-                $plant_user->plant_id = $model->id;
-                if ($plant_user->save()) {
-                    if (count($keyArr[0])>0) {
-                        foreach($keyArr[0] as $ka) {
-                            $plant_tab = new PlantTab;
-                            $plant_tab->key = $ka['key'];
-                            $plant_tab->value = $ka['value'];
-                            $plant_tab->plant_id = $model->id;
-                            if (!$plant_tab->save()) {
-                                DB::rollBack();
-                                return response()->json('false');
-                            }
-                        }
-                    }
-                    DB::commit();
-                    return response()->json('true');
-                } else {
-                    DB::rollBack();
-                    return response()->json('false');
-                }
-            } else {
-                $plt_ids = $this->getIdArr($id);
-                if (count($keyArr[0])>0) {
-                    $dif = array_diff($plt_ids,$keyArr[1]);
-                    if(count($dif)>0) {
-                        $plantTabs = new PlantTab;
-                        if(!$plantTabs::destroy($dif)) {
-                            DB::rollBack();
-                            return response()->json('false');
-                        }
-                    }
-                    foreach($keyArr[0] as $ka) {
-                        if (isset($ka['id'])) {
-                            $plant_tab = PlantTab::find($ka['id']);
-                            $plant_tab->key = $ka['key'];
-                            $plant_tab->value = $ka['value'];
-                        } else {
-                            $plant_tab = new PlantTab;
-                            $plant_tab->key = $ka['key'];
-                            $plant_tab->value = $ka['value'];
-                            $plant_tab->plant_id = $id;
-                        }
-                        if (!$plant_tab->save()) {
-                            DB::rollBack();
-                            return response()->json('false');
-                        }
-                    }
-                } else {
-                    if (count($plt_ids)>0) {
-                        $plantTabs = new PlantTab;
-                        if(!$plantTabs::destroy($plt_ids)) {
-                            DB::rollBack();
-                            return response()->json('false');
-                        }
-                    }
-                }
-                DB::commit();
-                return response()->json('true');
-            }
+            return response()->json('true');
         } else {
             return response()->json('false');
         }
@@ -178,41 +109,5 @@ class OperateController extends Controller
         $img = 'img';
         $pic = IQuery::setImg($request,$img,'image/plant/','plt_');
         return $pic;
-    }
-    
-    /*
-     * 获取key value
-     */
-    public function getKeyVal($request) {
-        $arr = [];
-        $arrId = [];
-        for($i=0; $i<9999; $i++) {
-            $key = 'key'.$i;
-            $value = 'value'.$i;
-            $hid = 'hid'.$i;
-            if(isset($request->$key) && isset($request->$value)) {
-                $arr[$i]['key'] = $request->$key;
-                $arr[$i]['value'] = $request->$value;
-                $arr[$i]['id'] = $request->$hid;
-                if (isset($request->$hid)) {
-                    $arrId[] = intval($request->$hid);
-                }
-            } else {
-                break;
-            }
-        }
-        return [$arr, $arrId];
-    }
-    
-    /*
-     * 根据id获取数组
-     */
-    public function getIdArr($id) {
-        $arr = [];
-        $plant_tabs = PlantTab::where('plant_id',$id)->select('id')->get();
-        foreach($plant_tabs as $tab) {
-            $arr[] = $tab->id;
-        }
-        return $arr;
     }
 }
