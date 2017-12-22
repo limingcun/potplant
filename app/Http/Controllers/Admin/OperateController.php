@@ -40,12 +40,8 @@ class OperateController extends Controller
      * id:列表id数据
      */
     public function edit($id) {
-        $plant = Plant::find($id);
-        $plant_tab = PlantTab::where('plant_id',$id)->get();
-        return response()->json([
-            'plant' => $plant,
-            'plant_tab' => $plant_tab
-        ]);
+        $operate = Operate::find($id);
+        return response()->json($operate);
     }
     /*
      * 删除盆栽操作列表数据
