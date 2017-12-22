@@ -20,8 +20,6 @@ Route::get('get/openid','WebController@getOpenid'); //获取openid
 Route::group(['prefix' => 'home', 'namespace' => 'Home'], function() {
     Route::get('plant', 'IndexController@getPlant');
     Route::get('operate', 'IndexController@getOperate');
-    Route::get('test', 'IndexController@test');
-    Route::get('aaa', 'IndexController@aaa');
 });
 // 后端路由
 Route::post('admin/wxlogin', 'Admin\WxController@wxLogin');  //微信登录
@@ -29,4 +27,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'WxAu
     // 盆栽接口
     Route::resource('plant', 'PlantController');
     Route::post('plant/img', 'PlantController@uploadImg');
+    // 盆栽操作接口
+    Route::resource('operate', 'OperateController');
 });
