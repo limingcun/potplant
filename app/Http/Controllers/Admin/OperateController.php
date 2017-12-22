@@ -93,6 +93,7 @@ class OperateController extends Controller
         $model->setRawAttributes($request->only($arr));
         if ($id==-1) {
             $model->plant_id = IQuery::cleanInput($request->plant_id);
+            $model->type = IQuery::cleanInput($request->type);
         }
         if ($model->save()) {
             return response()->json('true');
@@ -107,7 +108,7 @@ class OperateController extends Controller
     public function uploadImg(Request $request)
     {
         $img = 'img';
-        $pic = IQuery::setImg($request,$img,'image/plant/','plt_');
+        $pic = IQuery::setImg($request,$img,'image/operate/','opr_');
         return $pic;
     }
 }
