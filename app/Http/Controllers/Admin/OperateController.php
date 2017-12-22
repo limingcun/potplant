@@ -108,7 +108,7 @@ class OperateController extends Controller
     public function uploadImg(Request $request)
     {
         $img = 'img';
-        $pic = IQuery::setImg($request,$img,'image/operate/','opr_');
+        $pic = IQuery::setImg($request,$img,'opera/','opr_');
         return $pic;
     }
 }
