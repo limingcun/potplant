@@ -47,7 +47,6 @@ class WebController extends Controller
         $res = file_get_contents($url);
         $res = IQuery::changeType($res);
         $access_token = $res['access_token'];
-        return $access_token;
         $data = array('path' => 'pages/test');
         $data = json_encode($data);
         $url = 'https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode?access_token='.$access_token;
