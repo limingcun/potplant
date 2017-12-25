@@ -87,4 +87,31 @@ class IQuery{
             if (is_file($img)) unlink($img);
         }
     }
+    
+    /*
+     * 字符串转换为数组
+     * $params 字符串
+     */
+    public function changeType($params) {
+        $arr=Array();
+        if(!is_array($params)) {
+            $params = $this->delStr($params,'{','}');
+            $params = explode(',',$params);
+            foreach($params as $param) {
+                $param = explode(':',$param);
+                $param[0] = $this->delStr($param[0],'\"','\"');
+                $param[1] = $this->delStr($param[1],'\"','\"');
+                $arr[$param[0]]=$param[1];
+            }
+            return $arr;
+        }
+        return $params;
+    }
+    
+    //去掉两端字符串
+    public function delStr($params,$left,$right) {
+        $params = ltrim($params,$left);
+        $params = rtrim($params,$right);
+        return $params;
+    }
 }
