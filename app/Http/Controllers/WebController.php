@@ -46,7 +46,6 @@ class WebController extends Controller
         $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type='.$this->grant_type1.'&appid='.$this->appid.'&secret='.$this->secret;
         $res = file_get_contents($url);
         $res = IQuery::changeType($res);
-        return $res;
         $access_token = $res['access_token'];
         return $access_token;
         $data = array('path' => 'pages/test');
