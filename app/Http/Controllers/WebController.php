@@ -42,7 +42,7 @@ class WebController extends Controller
      ** 生成微信二维码
     **/
     public function setQrcode(Request $request) {
-        $plant_Id = $request->id;
+        $plant_id = $request->id;
         $path = $request->path;
         if (!isset($plant_id)&&!isset($path)) {
             return response()->json('false');
