@@ -43,12 +43,16 @@ class WebController extends Controller
     **/
     public function setQrcode(Request $request) {
         $plant_Id = $request->id;
+        $path = $request->path;
+        if (!isset($plant_id)&&!isset($path)) {
+            return response()->json('false');
+        }
         if(is_file('image/qrcode/plant_qrcode_'.$plant_id)) {
             $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type='.$this->grant_type1.'&appid='.$this->appid.'&secret='.$this->secret;
             $res = file_get_contents($url);
             $res = IQuery::changeType($res);
             $access_token = $res['access_token'];
-            $data = array('path' => $request->path);
+            $data = array('path' => $path);
             $data = json_encode($data);
             $url = 'https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode?access_token='.$access_token;
             $options = array(
