@@ -47,7 +47,8 @@ class WebController extends Controller
         if (!isset($plant_id)&&!isset($path)) {
             return response()->json('false');
         }
-        if(!is_file('image/qrcode/plant_qrcode_'.$plant_id)) {
+        $file = str_replace("\\","/",public_path().'/'.('image/qrcode/plant_qrcode_'.$plant_id));
+        if(!is_file($file)) {
             $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type='.$this->grant_type1.'&appid='.$this->appid.'&secret='.$this->secret;
             $res = file_get_contents($url);
             $res = IQuery::changeType($res);
