@@ -42,24 +42,27 @@ class WebController extends Controller
      ** 生成微信二维码
     **/
     public function setQrcode(Request $request) {
-        error_reporting(0);
-        $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type='.$this->grant_type1.'&appid='.$this->appid.'&secret='.$this->secret;
-        $res = file_get_contents($url);
-        $res = IQuery::changeType($res);
-        $access_token = $res['access_token'];
-        $data = array('path' => 'pages/test');
-        $data = json_encode($data);
-        $url = 'https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode?access_token='.$access_token;
-        $options = array(
-            'http' => array (
-                'method' => 'POST',
-                'header' => 'Content-type:application/json',
-                'content' => $data,
-                'timeout' => 15 * 60 // 超时时间（单位:s）
-            )
-        );
-        $context = stream_context_create($options);
-        $result = file_get_contents($url, false, $context);
-        file_put_contents('image/pic.jpg',$result);
+        $plant_Id = $request->id;
+        if(is_file('image/qrcode/plant_qrcode_'.$plant_id)) {
+            $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type='.$this->grant_type1.'&appid='.$this->appid.'&secret='.$this->secret;
+            $res = file_get_contents($url);
+            $res = IQuery::changeType($res);
+            $access_token = $res['access_token'];
+            $data = array('path' => $request->path);
+            $data = json_encode($data);
+            $url = 'https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode?access_token='.$access_token;
+            $options = array(
+                'http' => array (
+                    'method' => 'POST',
+                    'header' => 'Content-type:application/json',
+                    'content' => $data,
+                    'timeout' => 15 * 60 // 超时时间（单位:s）
+                )
+            );
+            $context = stream_context_create($options);
+            $result = file_get_contents($url, false, $context);
+            file_put_contents('image/qrcode/plant_qrcode_'.$plant_id,$result);
+        }
+        return response()->json('image/qrcode/plant_qrcode_'.$plant_id);
     }
 }
