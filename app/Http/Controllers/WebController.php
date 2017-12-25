@@ -43,7 +43,7 @@ class WebController extends Controller
     public function setQrcode(Request $request) {
         $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type='.$this->grant_type1.'&appid='.$this->appid.'&secret='.$this->secret;
         $res = file_get_contents($url);
-        $res = json_decode($res);
+        $res = json_encode($res);
         return $res;
         $access_token = $res['access_token'];
         return $access_token;
