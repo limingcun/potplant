@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('get/openid','WebController@getOpenid'); //获取openid
+Route::get('set/qrcode','WebController@setQrcode'); //获取二维码
 // 前端路由
 Route::group(['prefix' => 'home', 'namespace' => 'Home'], function() {
     Route::get('plant', 'IndexController@getPlant');
