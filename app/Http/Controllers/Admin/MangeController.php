@@ -20,17 +20,17 @@ class MangeController extends Controller
         $user = User::join('plant_users','users.id','plant_users.plant_id')
                     ->where('plant_users.plant_id',$plant_id);
         if(isset($request->startDate)) {
-            $operate = $operate->where('users.created_at','>=',$request->startDate);
+            $user = $user->where('users.created_at','>=',$request->startDate);
         } 
         if(isset($request->endDate)) {
-            $operate = $operate->where('users.created_at','<=',$request->endDate);
+            $user = $user->where('users.created_at','<=',$request->endDate);
         }
         $page = IQuery::cleanInput($request->page);
         $page = isset($page) ? $page : '';
         if($page != '') {
             $request->merge(['page'=>$page]);
         }
-        $operate = $operate->orderBy('users.created_at', 'desc')->paginate(config('app.page'));
+        $user = $user->orderBy('users.created_at', 'desc')->paginate(config('app.page'));
         return response()->json($operate);
     }
     /*
