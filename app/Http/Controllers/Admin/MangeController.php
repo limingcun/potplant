@@ -17,7 +17,7 @@ class MangeController extends Controller
      */
     public function index(Request $request) {
         $plant_id = IQuery::cleanInput($request->plant_id);
-        $user = User::join('plant_users','users.id','plant_users.plant_id')
+        $user = User::join('plant_users','users.id','plant_users.user_id')
                     ->where('plant_users.plant_id',$plant_id);
         if(isset($request->startDate)) {
             $user = $user->where('users.created_at','>=',$request->startDate);
