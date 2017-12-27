@@ -31,7 +31,7 @@ class MangeController extends Controller
             $request->merge(['page'=>$page]);
         }
         $user = $user->orderBy('users.created_at', 'desc')->paginate(config('app.page'));
-        return response()->json($operate);
+        return response()->json($user);
     }
     /*
      * 编辑盆栽列表数据
