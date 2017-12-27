@@ -31,4 +31,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'WxAu
     // 盆栽操作接口
     Route::resource('operate', 'OperateController');
     Route::post('operate/img', 'OperateController@uploadImg');
+    // 管理员接口
+    Route::resource('mange', 'MangeController');
 });
