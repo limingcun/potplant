@@ -19,18 +19,12 @@ class MangeController extends Controller
         $plant_id = IQuery::cleanInput($request->plant_id);
         $user = User::join('plant_users','users.id','plant_users.user_id')
                     ->where('plant_users.plant_id',$plant_id);
-        if(isset($request->startDate)) {
-            $user = $user->where('users.created_at','>=',$request->startDate);
-        } 
-        if(isset($request->endDate)) {
-            $user = $user->where('users.created_at','<=',$request->endDate);
-        }
         $page = IQuery::cleanInput($request->page);
         $page = isset($page) ? $page : '';
         if($page != '') {
             $request->merge(['page'=>$page]);
         }
-        $user = $user->orderBy('users.created_at', 'desc')->paginate(config('app.page'));
+        $user = $user->orderBy('users.created_at', 'desc')->select('users.real_name', 'users.img', 'users.created_at', 'plant_users.type')->paginate(config('app.page'));
         return response()->json($user);
     }
     /*

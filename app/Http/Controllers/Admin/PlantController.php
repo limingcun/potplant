@@ -33,7 +33,7 @@ class PlantController extends Controller
         if($page != '') {
             $request->merge(['page'=>$page]);
         }
-        $plant = $plant->orderBy('plants.created_at', 'desc')->select('plants.*')->paginate(config('app.page'));
+        $plant = $plant->orderBy('plants.created_at', 'desc')->select('plants.name','plants.img','plants.created_at','plant_users.type')->paginate(config('app.page'));
         return response()->json($plant);
     }
     /*
@@ -108,6 +108,7 @@ class PlantController extends Controller
                 $plant_user = new PlantUser;
                 $plant_user->user_id = IQuery::getAuthUser($request->openid)->id;
                 $plant_user->plant_id = $model->id;
+                $plant_user->type = 1;
                 if ($plant_user->save()) {
                     if (count($keyArr[0])>0) {
                         foreach($keyArr[0] as $ka) {
