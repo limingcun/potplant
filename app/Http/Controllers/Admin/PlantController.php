@@ -102,6 +102,9 @@ class PlantController extends Controller
             $model = Plant::find($id);
         }
         $keyArr = $this->getKeyVal($request);
+        if($id!==-1) {
+            IQuery::imgChange($model->img,$request->img);
+        }
         $arr = ['intro', 'name', 'img'];
         $model->setRawAttributes($request->only($arr));
         DB::beginTransaction();

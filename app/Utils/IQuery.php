@@ -114,4 +114,18 @@ class IQuery{
         $params = rtrim($params,$right);
         return $params;
     }
+    
+    /*
+     * 图片比较方法
+     * $oldImg老图片字符串，$newImg新图片字符串
+     */
+    public function imgChange($oldImg,$newImg) {
+        $difArr = array_diff(explode(',', $oldImg),  explode(',', $newImg));
+        if(count($difArr)>0) {
+            foreach($difArr as $dif) {
+                $img = str_replace("\\","/",public_path().'/'.($dif));
+                if (is_file($img)) unlink($img);
+            }
+        }
+    }
 }
