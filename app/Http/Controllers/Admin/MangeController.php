@@ -71,4 +71,14 @@ class MangeController extends Controller
             return response()->json('false');
         }
     }
+    
+    /*
+     * 上传图片接口
+     */
+    public function uploadImg(Request $request)
+    {
+        $img = 'img';
+        $pic = IQuery::setImg($request,$img,'image/user/','user_');
+        return $pic;
+    }
 }
