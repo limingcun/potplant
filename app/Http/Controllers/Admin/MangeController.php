@@ -29,6 +29,16 @@ class MangeController extends Controller
                      ->paginate(config('app.page'));
         return response()->json($user);
     }
+    
+    /*
+     * 编辑盆栽列表数据
+     * id:列表id数据
+     */
+    public function edit($id) {
+        $user = User::find($id);
+        return response()->json($user);
+    }
+    
     /*
      * 删除盆栽操作列表数据
      * id:列表id数据
