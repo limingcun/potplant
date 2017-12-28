@@ -25,7 +25,7 @@ class MangeController extends Controller
             $request->merge(['page'=>$page]);
         }
         $user = $user->orderBy('users.created_at', 'desc')
-                     ->select('users.id','users.real_name', 'users.img', 'users.created_at', 'plant_users.type')
+                     ->select('users.id','users.real_name', 'users.img', 'users.openid', 'users.created_at', 'plant_users.type','plant_users.id as puid')
                      ->paginate(config('app.page'));
         return response()->json($user);
     }
@@ -34,7 +34,7 @@ class MangeController extends Controller
      * id:列表id数据
      */
     public function destroy($id) {
-        $operate = Operate::find($id);
+        $operate = PlantUser::find($id);
         IQuery::delMosImg($operate->img);
         if($operate->delete()) {
             return response()->json('true');
