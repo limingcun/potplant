@@ -35,3 +35,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'WxAu
     Route::resource('mange', 'MangeController');
     Route::post('mange/img', 'MangeController@uploadImg');
 });
+//其他操作
+Route::group(['prefix' => 'web', 'namespace' => 'Web'], function() {
+    Route::get('invit', 'ObjectController@getInvit');
+});

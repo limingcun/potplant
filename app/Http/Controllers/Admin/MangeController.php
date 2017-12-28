@@ -45,7 +45,6 @@ class MangeController extends Controller
      */
     public function destroy($id) {
         $operate = PlantUser::find($id);
-        IQuery::delMosImg($operate->img);
         if($operate->delete()) {
             return response()->json('true');
         } else {
