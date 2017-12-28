@@ -59,20 +59,12 @@ class MangeController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'datetime' => 'required',
-            'info' => 'required|max:2000'
+            'real_name' => 'required',
+            'sex' => 'required'
         ]);
-        if ($id == -1) {
-            $model = new Operate;
-        } else {
-            $model = Operate::find($id);
-        }
-        $arr = ['info', 'datetime', 'img'];
+        $model = Operate::find($id);
+        $arr = ['real_name', 'age', 'sex', 'img', 'address', 'email', 'phone'];
         $model->setRawAttributes($request->only($arr));
-        if ($id==-1) {
-            $model->plant_id = IQuery::cleanInput($request->plant_id);
-            $model->type = IQuery::cleanInput($request->type);
-        }
         if ($model->save()) {
             return response()->json('true');
         } else {

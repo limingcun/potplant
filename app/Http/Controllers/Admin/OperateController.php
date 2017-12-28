@@ -84,6 +84,7 @@ class OperateController extends Controller
             $model = new Operate;
         } else {
             $model = Operate::find($id);
+            IQuery::imgChange($model->img,$request->img);
         }
         $arr = ['info', 'datetime', 'img'];
         $model->setRawAttributes($request->only($arr));
