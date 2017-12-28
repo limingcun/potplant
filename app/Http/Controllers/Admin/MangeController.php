@@ -62,7 +62,7 @@ class MangeController extends Controller
             'real_name' => 'required',
             'sex' => 'required'
         ]);
-        $model = Operate::find($id);
+        $model = User::find($id);
         $arr = ['real_name', 'age', 'sex', 'img', 'address', 'email', 'phone'];
         $model->setRawAttributes($request->only($arr));
         if ($model->save()) {
