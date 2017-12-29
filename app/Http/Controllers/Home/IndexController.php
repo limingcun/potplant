@@ -51,8 +51,30 @@ class IndexController extends Controller
     {
         $plant_id = IQuery::cleanInput($request->id);
         $plant_user = PlantUser::join('users', 'plant_users.user_id','=','users.id')
+                    ->whereNull('users.deleted_at')
                     ->where('plant_id', $plant_id)->select('users.id','users.real_name','users.img','users.sex','users.age','users.phone',
                             'users.email','users.address','plant_users.type')->get();
         return response()->json($plant_user);
+    }
+    
+    /**
+     * Display a listing of the resource.
+     * 查看是否管理员
+     * @return \Illuminate\Http\Response
+     */
+    public function lookCheck(Request $request)
+    {
+        $plant_id = IQuery::cleanInput($request->id);
+        $openid = $request->openid;
+        $data = User::join('plant_users', 'users.id', 'plant_users.user_id')
+                     ->whereNull('plant_users.deleted_at')
+                     ->where('plant_users.plant_id', $plant_id)
+                     ->where('users.openid',$openid)
+                     ->first();
+        if(isset($data)) {
+            return response()->json('true');
+        } else {
+            return response()->json('false');
+        }
     }
 }
