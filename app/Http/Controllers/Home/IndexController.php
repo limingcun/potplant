@@ -10,6 +10,7 @@ use App\Operate;
 use App\PlantUser;
 use IQuery;
 use Session;
+use App\User;
 class IndexController extends Controller
 {
     /**
