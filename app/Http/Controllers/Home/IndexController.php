@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Plant;
 use App\PlantTab;
 use App\Operate;
+use App\PlantUser;
 use IQuery;
 use Session;
 class IndexController extends Controller
@@ -40,11 +41,16 @@ class IndexController extends Controller
         $operate = Operate::where('plant_id', $plant_id)->where('type',$type)->get();
         return response()->json($operate);
     }
-    public function aaa() {
-        Session::put('st1','7657464');
-    }
-    public function test() {
-        $st = Session::get('st1');
-        return $st.'7777';
+    
+    /**
+     * Display a listing of the resource.
+     * 获取管理员数据信息
+     * @return \Illuminate\Http\Response
+     */
+    public function getMange(Request $request)
+    {
+        $plant_id = IQuery::cleanInput($request->id);
+        $plant_user = PlantUser::where('plant_id', $plant_id)->select('user_id','type')->get();
+        return response()->json($plant_user);
     }
 }

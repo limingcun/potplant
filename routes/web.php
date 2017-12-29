@@ -21,6 +21,7 @@ Route::get('set/qrcode','WebController@setQrcode'); //获取二维码
 Route::group(['prefix' => 'home', 'namespace' => 'Home'], function() {
     Route::get('plant', 'IndexController@getPlant');
     Route::get('operate', 'IndexController@getOperate');
+    Route::get('mange', 'IndexController@getMange');
 });
 // 后端路由
 Route::post('admin/wxlogin', 'Admin\WxController@wxLogin');  //微信登录
