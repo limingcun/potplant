@@ -50,7 +50,9 @@ class IndexController extends Controller
     public function getMange(Request $request)
     {
         $plant_id = IQuery::cleanInput($request->id);
-        $plant_user = PlantUser::where('plant_id', $plant_id)->select('user_id','type')->get();
+        $plant_user = PlantUser::join('users', 'plant_users.user_id','=','users.id')
+                    ->where('plant_id', $plant_id)->select('users.id','users.real_name','users.sex','users.age','users.phone',
+                            'users.email','users.email','plant_users.type')->get();
         return response()->json($plant_user);
     }
 }
