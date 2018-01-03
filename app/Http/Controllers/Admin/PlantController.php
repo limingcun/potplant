@@ -18,12 +18,10 @@ class PlantController extends Controller
      * params:[openid:微信id,startDate:开始时间,endDate:结束时间,page:分页]
      */
     public function index(Request $request) {
-        $openid = IQuery::cleanInput($request->openid);
-        return response()->json($openid);
+        $openid = $request->openid;
         $plant = Plant::join('plant_users','plants.id','=','plant_users.plant_id')
                 ->join('users','plant_users.user_id','=','users.id')
                 ->where('users.openid',$openid);
-        return response()->json($plant->get());
         if(isset($request->startDate)) {
             $plant = $plant->where('plants.created_at','>=',$request->startDate);
         } 
