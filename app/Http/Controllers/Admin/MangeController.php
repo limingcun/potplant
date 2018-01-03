@@ -24,7 +24,7 @@ class MangeController extends Controller
         if($page != '') {
             $request->merge(['page'=>$page]);
         }
-        $user = $user->orderBy('users.created_at', 'desc')
+        $user = $user->orderBy('plant_users.type', 'desc')
                      ->select('users.id','users.real_name', 'users.img', 'users.openid', 'users.created_at', 'plant_users.type','plant_users.id as puid')
                      ->paginate(config('app.page'));
         return response()->json($user);
