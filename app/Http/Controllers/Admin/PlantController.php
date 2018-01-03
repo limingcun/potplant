@@ -22,6 +22,7 @@ class PlantController extends Controller
         $plant = Plant::join('plant_users','plants.id','=','plant_users.plant_id')
                 ->join('users','plant_users.user_id','=','users.id')
                 ->where('users.openid',$openid);
+        return response()->json($plant->get());
         if(isset($request->startDate)) {
             $plant = $plant->where('plants.created_at','>=',$request->startDate);
         } 
@@ -33,7 +34,6 @@ class PlantController extends Controller
         if($page != '') {
             $request->merge(['page'=>$page]);
         }
-        return response()->json($plant->get());
         $plant = $plant->orderBy('plants.created_at', 'desc')
                ->select('plants.id','plants.name','plants.img','plants.created_at','plant_users.type')
                ->paginate(config('app.page'));
