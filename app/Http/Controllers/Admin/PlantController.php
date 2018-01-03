@@ -18,6 +18,7 @@ class PlantController extends Controller
      * params:[openid:微信id,startDate:开始时间,endDate:结束时间,page:分页]
      */
     public function index(Request $request) {
+        return $request->openid;
         $openid = IQuery::cleanInput($request->openid);
         $plant = Plant::join('plant_users','plants.id','=','plant_users.plant_id')
                 ->join('users','plant_users.user_id','=','users.id')
