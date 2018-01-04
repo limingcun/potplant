@@ -19,7 +19,8 @@ class MangeController extends Controller
     public function index(Request $request) {
         $plant_id = IQuery::cleanInput($request->plant_id);
         $user = User::join('plant_users','users.id','plant_users.user_id')
-                    ->where('plant_users.plant_id',$plant_id);
+                    ->where('plant_users.plant_id',$plant_id)
+                    ->whereNull('plant_users.deleted_at');
         $page = IQuery::cleanInput($request->page);
         $page = isset($page) ? $page : '';
         if($page != '') {
