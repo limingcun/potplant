@@ -11,6 +11,7 @@ class AuthController extends Controller
 {
     /*
      * 判断是否登录
+     * openid 微信id
      */
     public function checkLogin(Request $request) {
         $st = IQuery::redisGet('st_'.$request->openid);
@@ -25,5 +26,34 @@ class AuthController extends Controller
         }
         $user = User::where('openid',$request->openid)->select('real_name')->first();
         return response()->json($user); 
-    }   
+    }
+    /*
+     * 微信登录
+     * openid 微信id
+     */
+    public function wxLogin(Request $request) {
+        $user = User::where('openid','=',$request->openid)->first();
+        if (isset($user)) {
+            $st = 'wx_login_'.$this->createRandomStr(32);
+            IQuery::redisSet('st_'.$request->openid, $st, 3600 * 24);
+            $user->st = $st;
+            return response()->json($user);
+        } else {
+            return response()->json('false');
+        }
+    }
+    /*
+     * 随机生成字符串
+     * $length为字符串长度
+     */
+    public function createRandomStr($length){ 
+        $str = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';//62个字符 
+        $strlen = 62; 
+        while($length > $strlen) {
+            $str .= $str; 
+            $strlen += 62; 
+        } 
+        $str = str_shuffle($str); 
+        return substr($str,0,$length); 
+    } 
 }

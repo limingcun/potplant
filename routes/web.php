@@ -42,4 +42,6 @@ Route::group(['prefix' => 'web', 'namespace' => 'Web'], function() {
     Route::get('invit', 'ObjectController@getInvit');
     // 判断是否登录
     Route::get('clg','AuthController@checkLogin');
+    // 微信登录
+    Route::get('wxlogin','AuthController@wxLogin');
 });
