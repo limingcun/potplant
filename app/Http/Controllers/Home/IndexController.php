@@ -78,4 +78,13 @@ class IndexController extends Controller
             return response()->json('false');
         }
     }
+    /**
+     * Display a listing of the resource.
+     * 获取所有盆栽数据信息
+     * @return \Illuminate\Http\Response
+     */
+    public function getAllPlant(Request $request) {
+        $plant = Plant::get();
+        return response()->json($plant);
+    }
 }

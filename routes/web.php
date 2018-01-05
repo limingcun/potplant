@@ -40,4 +40,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'WxAu
 //其他操作
 Route::group(['prefix' => 'web', 'namespace' => 'Web'], function() {
     Route::get('invit', 'ObjectController@getInvit');
+    // 判断是否登录
+    Route::get('clg','AuthController@checkLogin');
 });
