@@ -37,10 +37,14 @@ class AuthController extends Controller
     public function wxLogin(Request $request) {
         $user = User::where('openid','=',$request->openid)->first();
         if (isset($user)) {
-            $st = 'wx_login_'.$this->createRandomStr(32);
-            IQuery::redisSet('st_'.$request->openid, $st, 3600 * 24);
-            $user->st = $st;
-            return response()->json($user);
+            if ($user->apply_state==1) {
+                $st = 'wx_login_'.$this->createRandomStr(32);
+                IQuery::redisSet('st_'.$request->openid, $st, 3600 * 24);
+                $user->st = $st;
+                return response()->json($user);
+            } else {
+                return response()->json('error');
+            }
         } else {
             return response()->json('false');
         }
