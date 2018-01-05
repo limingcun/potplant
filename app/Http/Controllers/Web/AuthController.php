@@ -15,16 +15,19 @@ class AuthController extends Controller
      */
     public function checkLogin(Request $request) {
         $st = IQuery::redisGet('st_'.$request->openid);
+        $user = User::where('openid',$request->openid)->select('real_name', 'apply_state')->first();
+        if (!isset($user)) {
+            return response()->json('notapply', 400);
+        }
         if (isset($st)) {
             if (!isset($request->st)) {
-                return response()->json('notlogin', 402);
+                return response()->json($user->apply_state, 402);
             } else if($request->st != $st) {
-                return response()->json('expired', 403);
+                return response()->json($user->apply_state, 403);
             }
         } else {
-            return response()->json('deadline', 401);
+            return response()->json($user->apply_state, 401);
         }
-        $user = User::where('openid',$request->openid)->select('real_name')->first();
         return response()->json($user); 
     }
     /*
@@ -55,5 +58,20 @@ class AuthController extends Controller
         } 
         $str = str_shuffle($str); 
         return substr($str,0,$length); 
-    } 
+    }
+    
+    /*
+     * 提交申请管理
+     */
+    public function applyFor(Request $request) {
+        $data['name'] = $this->createRandomStr(10);
+        $data['img'] = $request->img;
+        $data['type'] = 0;
+        $data['real_name'] = $request->real_name; 
+        $data['sex'] = $request->sex;
+        $data['openid'] = $request->openid;
+        $data['password'] = bcrypt('000000');
+        $result = User::create($data);
+        return $result;
+    }
 }
