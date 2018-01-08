@@ -95,7 +95,7 @@ class IndexController extends Controller
             $request->merge(['page'=>$page]);
         }
         $plant = $plant->select('plants.id','plants.name','plants.img','users.real_name')
-                      ->paginate(config('app.page'));
+                      ->orderBy('plants.id','desc')->paginate(config('app.page'));
         return response()->json($plant);
     }
 }
