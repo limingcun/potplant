@@ -89,6 +89,7 @@ class IndexController extends Controller
                       ->where('plant_users.deleted_at')
                       ->where('users.deleted_at')
                       ->select('plants.id','plants.name','plants.img','users.real_name')
+                      ->distinct('plants.id')
                       ->get();
         return response()->json($plant);
     }
