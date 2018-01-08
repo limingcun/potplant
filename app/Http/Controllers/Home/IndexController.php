@@ -87,6 +87,7 @@ class IndexController extends Controller
         $plant = Plant::join('plant_users','plants.id','=','plant_users.plant_id')
                       ->join('users','plant_users.user_id','=','users.id')
                       ->where('plant_users.deleted_at')
+                      ->where('plant_users.type', '=', 1)
                       ->where('users.deleted_at')
                       ->select('plants.id','plants.name','plants.img','users.real_name')
                       ->distinct('plants.id')
