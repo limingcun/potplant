@@ -76,6 +76,10 @@ class AuthController extends Controller
         $data['openid'] = $request->openid;
         $data['password'] = bcrypt('000000');
         $result = User::create($data);
-        return $result;
+        if ($result) {
+            return response()->json('true');
+        } else {
+            return response()->json('false');
+        }
     }
 }

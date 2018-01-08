@@ -44,4 +44,6 @@ Route::group(['prefix' => 'web', 'namespace' => 'Web'], function() {
     Route::get('clg','AuthController@checkLogin');
     // 微信登录
     Route::get('wxlogin','AuthController@wxLogin');
+    // 提交申请
+    Route::post('apply','AuthController@applyFor');
 });
