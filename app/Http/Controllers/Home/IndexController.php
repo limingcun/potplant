@@ -84,7 +84,12 @@ class IndexController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function getPlantList(Request $request) {
-        $plant = Plant::get();
+        $plant = Plant::join('plant_users','plants.id','=','plant_users.plant_id')
+                      ->join('users','plant_users.user_id','=','users.id')
+                      ->where('plant_users.deleted_at')
+                      ->where('users.deleted_at')
+                      ->select('plants.id','plants.name','plants.img','users.real_name')
+                      ->get();
         return response()->json($plant);
     }
 }
