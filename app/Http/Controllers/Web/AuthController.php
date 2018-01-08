@@ -82,4 +82,10 @@ class AuthController extends Controller
             return response()->json('false');
         }
     }
+    
+    /*
+     * 申请列表
+     */
+    public function applyList(Request $request) {
+    }
 }
