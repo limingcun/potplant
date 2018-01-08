@@ -89,6 +89,8 @@ class IndexController extends Controller
                       ->where('plant_users.deleted_at')
                       ->where('plant_users.type', '=', 1)
                       ->where('users.deleted_at');
+        $page = IQuery::cleanInput($request->page);
+        $page = isset($page) ? $page : '';
         if($page != '') {
             $request->merge(['page'=>$page]);
         }
