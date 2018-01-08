@@ -71,7 +71,7 @@ class AuthController extends Controller
         $data['name'] = $this->createRandomStr(10);
         $data['img'] = $request->img;
         $data['type'] = 0;
-        $data['real_name'] = $request->real_name; 
+        $data['real_name'] = $request->real_name;
         $data['sex'] = $request->sex;
         $data['openid'] = $request->openid;
         $data['password'] = bcrypt('000000');
