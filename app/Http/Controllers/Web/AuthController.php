@@ -15,7 +15,7 @@ class AuthController extends Controller
      */
     public function checkLogin(Request $request) {
         $st = IQuery::redisGet('st_'.$request->openid);
-        $user = User::where('openid',$request->openid)->select('real_name', 'apply_state')->first();
+        $user = User::where('openid',$request->openid)->select('real_name', 'apply_state', 'type')->first();
         if (!isset($user)) {
             return response()->json('notapply', 400);
         }
