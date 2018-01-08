@@ -88,10 +88,12 @@ class IndexController extends Controller
                       ->join('users','plant_users.user_id','=','users.id')
                       ->where('plant_users.deleted_at')
                       ->where('plant_users.type', '=', 1)
-                      ->where('users.deleted_at')
-                      ->select('plants.id','plants.name','plants.img','users.real_name')
-                      ->distinct('plants.id')
-                      ->get();
+                      ->where('users.deleted_at');
+        if($page != '') {
+            $request->merge(['page'=>$page]);
+        }
+        $plant = $plant->select('plants.id','plants.name','plants.img','users.real_name')
+                      ->paginate(config('app.page'));
         return response()->json($plant);
     }
 }
