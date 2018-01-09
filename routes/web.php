@@ -47,4 +47,5 @@ Route::group(['prefix' => 'web', 'namespace' => 'Web'], function() {
     Route::get('wxlogin','AuthController@wxLogin');
     // 提交申请
     Route::post('apply','AuthController@applyFor');
+    Route::get('apply-list','AuthController@applyList')->middleware('WxAuth');
 });

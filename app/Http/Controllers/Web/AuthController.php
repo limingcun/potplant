@@ -85,7 +85,17 @@ class AuthController extends Controller
     
     /*
      * 申请列表
+     * page页数
      */
     public function applyList(Request $request) {
+        $list = User::where('type','!=',1);
+        $page = IQuery::cleanInput($request->page);
+        $page = isset($page) ? $page : '';
+        if($page != '') {
+            $request->merge(['page'=>$page]);
+        }
+        $list = $list->select('id','real_name','img','sex','address','phone','email','apply_state')
+                      ->orderBy('id','desc')->paginate(config('app.page'));
+        return response()->json($list);
     }
 }
