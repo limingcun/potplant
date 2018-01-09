@@ -98,4 +98,17 @@ class AuthController extends Controller
                       ->orderBy('id','desc')->paginate(config('app.page'));
         return response()->json($list);
     }
+    /*
+     * 更改申请状态
+     */
+    public function changeState(Request $request) {
+        $id = IQuery::cleanInput($request->id);
+        $user = User::findOrFail($id);
+        $user->apply_state = 1;
+        if ($user->save()) {
+            return response()->json('true');
+        } else {
+            return response()->json('false');
+        }
+    }
 }
