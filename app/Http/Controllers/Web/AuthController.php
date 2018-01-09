@@ -82,33 +82,4 @@ class AuthController extends Controller
             return response()->json('false');
         }
     }
-    
-    /*
-     * 申请列表
-     * page页数
-     */
-    public function applyList(Request $request) {
-        $list = User::where('type','!=',1);
-        $page = IQuery::cleanInput($request->page);
-        $page = isset($page) ? $page : '';
-        if($page != '') {
-            $request->merge(['page'=>$page]);
-        }
-        $list = $list->select('id','real_name','img','sex','address','phone','email','apply_state')
-                      ->orderBy('id','desc')->paginate(config('app.page'));
-        return response()->json($list);
-    }
-    /*
-     * 更改申请状态
-     */
-    public function changeState(Request $request) {
-        $id = IQuery::cleanInput($request->id);
-        $user = User::findOrFail($id);
-        $user->apply_state = 1;
-        if ($user->save()) {
-            return response()->json('true');
-        } else {
-            return response()->json('false');
-        }
-    }
 }

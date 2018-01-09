@@ -29,12 +29,12 @@ class ApplyController extends Controller
     }
     
     /*
-     * 删除盆栽操作列表数据
+     * 删除申请列表数据
      * id:列表id数据
      */
     public function destroy($id) {
-        $operate = PlantUser::find($id);
-        if($operate->delete()) {
+        $user = User::findOrFail($id);
+        if($user->delete()) {
             return response()->json('true');
         } else {
             return response()->json('false');
