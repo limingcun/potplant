@@ -38,8 +38,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'WxAu
     Route::resource('mange', 'MangeController');
     Route::post('mange/img', 'MangeController@uploadImg');
     // 申请列表
-    Route::resource('apply', 'ApplyController');
     Route::get('apply/state','ApplyController@changeState');
+    Route::resource('apply', 'ApplyController');
 });
 //其他操作
 Route::group(['prefix' => 'web', 'namespace' => 'Web'], function() {
