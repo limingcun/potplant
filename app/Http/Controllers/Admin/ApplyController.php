@@ -19,9 +19,14 @@ class ApplyController extends Controller
     public function index(Request $request) {
         $list = User::where('type','!=',1);
         $page = IQuery::cleanInput($request->page);
+        $state = $request->state;
         $page = isset($page) ? $page : '';
         if($page != '') {
             $request->merge(['page'=>$page]);
+        }
+        $state = isset($state) ? $state : '';
+        if ($state != '') {
+            $list = $list->where('apply_state',$state);
         }
         $list = $list->select('id','real_name','img','sex','address','phone','email','apply_state')
                       ->orderBy('id','desc')->paginate(config('app.page'));
