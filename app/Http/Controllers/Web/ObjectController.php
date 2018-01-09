@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\PlantUser;
+use App\User;
 use IQuery;
 class ObjectController extends Controller
 {
@@ -28,5 +29,22 @@ class ObjectController extends Controller
         } else {
             return response()->json('true');
         }
-    }   
+    }
+    
+    /*
+     * 判断是否是管理员
+     */
+    public function isAdmin(Request $request) {
+        $openid = $request->openid;
+        $user = User::where('openid',$openid)->first();
+        if (isset($user)) {
+            if ($user->apply_state) {
+                return response()->json($user->id);
+            } else {
+                return response()->json('false');
+            }
+        } else {
+            return response()->json('disapply');
+        }
+    }
 }
