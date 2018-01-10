@@ -73,6 +73,9 @@ class AuthController extends Controller
         $data['type'] = 0;
         $data['real_name'] = $request->real_name;
         $data['sex'] = $request->sex;
+        $data['phone'] = $request->phone;
+        $data['email'] = $request->email;
+        $data['address'] = $request->address;
         $data['openid'] = $request->openid;
         $data['password'] = bcrypt('000000');
         $result = User::create($data);
