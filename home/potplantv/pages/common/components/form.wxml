@@ -1,0 +1,119 @@
+<template name="form">
+<!--index.wxml-->
+<view>
+	<form bindsubmit="formSubmit">
+	<block wx:for="{{formFomat}}" wx:key="">
+		<!-- 图片组件 -->
+		<view class="form-img" wx:if="{{item.type=='img'}}">
+			<view class="form-img-wrap">
+				<view class="fl form-img-title">{{item.title}}</view>
+			  	<view class='putOutImg width700 fl'>
+				    <block wx:for="{{imgArr}}" wx:key="">
+				      <view class='a_putOutImg' >
+				      	<image class="close-ico" data-index="{{index}}" catch:tap="delImgFn" style="width:30rpx;height:30rpx;z-index:100;" src='/image/red_close.png'></image>
+				        <image src='{{item}}' data-img='{{item}}' mode="aspectFit" catch:tap="changeBig"></image>
+				      </view>
+				    </block>
+				    <view wx:if="{{imgArr.length < imgLength}}" class='a_camera' catch:tap="addImgFn">
+				      <image src='/image/camera.png'></image>
+				    </view>
+				</view>
+				<view class="form-arrow fr">
+					<image src="/image/arrow_down.png" class="arrow"></image>
+				</view>
+			</view>
+		</view>
+		<!-- 时间 -->
+		<view class="form-text" wx:if="{{item.type=='date'}}">
+			<view class="form-text-wrap">
+				<view class="fl form-text-title">{{item.title}}</view>
+				<view class="fl form-text-input">
+					<picker class="form-date fl" mode="date" value="{{date}}" start="1970-09-01" end="2050-09-01" bindchange="bindTimeChange" data-type="date">
+					    <view class="picker">
+					      {{subDate}}
+					    </view>
+					</picker>
+					<picker class="form-time fl" mode="time" value="{{time}}" bindchange="bindTimeChange" data-type="time">
+					    <view class="picker">
+					      {{subTime}}
+					    </view>
+					</picker>
+				</view>
+				<view class="form-text-arrow fr">
+					<image src="/image/arrow_down.png" class="arrow"></image>
+				</view>
+			</view>
+		</view>
+		<!-- 文本框 -->
+		<view class="form-text" wx:if="{{item.type=='text'}}">
+			<view class="form-text-wrap">
+				<view class="fl form-text-title">{{item.title}}</view>
+				<view class="fl form-text-input">
+					<input value="{{formInfo[item.name]}}" type="text" placeholder="{{item.placeholder}}" name="{{item.name}}"></input> 
+				</view>
+				<view class="form-text-arrow fr">
+					<image src="/image/arrow_down.png" class="arrow"></image>
+				</view>
+			</view>
+		</view>
+		<!-- 下拉框 -->
+		<view class="form-text" wx:if="{{item.type=='select'}}">
+			<view class="form-text-wrap">
+				<view class="fl form-text-title">{{item.title}}</view>
+				<picker bindchange="bindPickerChange" value="{{selectIndex}}" class="fl form-select-text" range="{{item.selectArr}}" name="sex">
+			        <view class="picker">
+			            {{item.selectArr[selectIndex]}}
+			        </view>
+			    </picker> 
+				<view class="form-text-arrow fr">
+					<image src="/image/arrow_down.png" class="arrow"></image>
+				</view>
+			</view>
+		</view>
+		<!-- 文本域 -->
+		<view class="form-textarea" wx:if="{{item.type=='textarea'}}">
+			<view class="form-textarea-wrap">
+				<view class="fl form-textarea-title">{{item.title}}</view>
+				<view class="fl form-textarea-content">
+					<textarea placeholder="{{item.placeholder}}" name="{{item.name}}" value="{{formInfo[item.name]}}"/>
+				</view>
+				<view class="fr form-textarea-arrow">
+					<image src="/image/arrow_down.png" class="arrow"></image>
+				</view>
+			</view>
+		</view>
+		<!-- 自定义内容 -->
+		<view wx:if="{{item.type=='custom'}}">
+			<view wx:if="{{inputArr.length > 0}}">
+				<block wx:for="{{inputArr}}" wx:key="">
+					<view class="form-other">
+						<view class="form-other-wrap">
+							<view class="fl form-other-title">
+								<input placeholder="属性名称" value="{{inputArr[index].key}}" type="text" name="key{{index}}"></input>
+							</view>
+							<view class="fl form-other-input">
+								<input placeholder="属性值" value="{{inputArr[index].value}}" type="text" name="value{{index}}"></input> 
+							</view>
+							<view class="form-text-delete fr">
+								<image src="../../../image/delete.png" data-index="{{index}}" data-type="del"  catchtap="operateInput"></image>
+							</view>
+							<input class="hidden-input"  value="{{inputArr[index].id}}" type="text" name="hid{{index}}"/>
+						</view>
+					</view>
+				</block>
+			</view>
+			<view class="form-add">
+				<view class="form-add-wrap">
+					<view class="form-add-img fr">
+						<image src="/image/add.png" data-type="add" catchtap="operateInput"></image>
+					</view>
+				</view>
+			</view>
+		</view>
+	</block>
+	<view class="form-submit">
+			<button class="v1" formType="submit">保存</button>
+		</view>
+	</form>
+</view>
+</template>

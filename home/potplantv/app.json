@@ -1,0 +1,29 @@
+{
+  "pages":[
+    "pages/homePage/homePage",
+    "pages/apply/applyFor/applyFor",
+    "pages/apply/applyList/applyList",
+    "pages/index/index",
+    "pages/admin/plant/plant",
+    "pages/admin/plantForm/plantForm",
+    "pages/admin/operate/indexList/indexList",
+    "pages/admin/operate/operate/operate",
+    "pages/admin/operate/operateForm/operateForm",
+    "pages/admin/operate/mange/mange",
+    "pages/admin/operate/mangeForm/mangeForm",
+    "pages/admin/operate/invit/invit",
+    "pages/home/list/list",
+    "pages/home/index/index",
+    "pages/home/operate/operate",
+    "pages/home/mange/mange",
+    "pages/home/look/look",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "盆栽溯源",
+    "navigationBarTextStyle": "black",
+    "onReachBottomDistance": "50"
+  }
+}

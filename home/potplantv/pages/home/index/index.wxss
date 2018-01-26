@@ -1,0 +1,125 @@
+@import "../../common/wxss/nav.wxss";
+@import "../../common/wxss/comWxss.wxss";
+@import "../../common/wxss/hpic.wxss";
+.body-box {
+	width: 100%;
+}
+.body-head {
+	width: 100%;
+	border-bottom: 20rpx solid #F7F8FA;
+}
+.head {
+	width: 90%;
+	margin: 0 auto;
+	height: 190rpx;
+}
+.head-name {
+	width: 70%;
+}
+.head-name .t1 {
+	font-size: 30rpx;
+}
+.head-name .t2 {
+	margin-top: 30rpx;
+	font-size: 66rpx;
+}
+.head-pic {
+	width: 30%;
+}
+.plant-img {
+	width: 100%;
+	text-align: center;
+	height: 480rpx;
+	border-bottom: 1px solid #CDCDCD;
+}
+.plant-img swiper {
+	height: 460rpx;
+}
+.plant-img image{
+	width: 100%;
+	height: 430rpx;
+}
+.body-foot {
+	width: 100%;
+	border-bottom: 20rpx solid #F7F8FA;
+}
+.plant-info {
+	width: 90%;
+	margin: 0 auto;
+	margin-bottom: 70rpx;
+}
+.plant-info .h1 {
+	margin: 20rpx 0 20rpx 0;
+}
+.plant-info .v1 {
+	color: #929292;
+	margin-bottom: 20rpx;
+	font-size: 30rpx;
+	text-indent:2em;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	display:-webkit-box;
+	-webkit-line-clamp:3;
+	-webkit-box-orient:vertical;
+}
+.plant-info .s1 {
+	color: #2372AE;
+}
+.body-foot-end {
+	width: 100%;
+	margin-top: 20rpx;
+	margin-bottom: 150rpx;
+}
+.foot-data {
+	width: 90%;
+	margin: 0 auto;
+}
+.foot-data .v1{
+	margin: 20rpx 0 20rpx 0;
+}
+.foot-data .v2{
+	color: #888888;
+	margin-bottom: 60rpx;
+	font-size: 30rpx;
+}
+.pop_up_wrap{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,.4);
+	color: #444444;
+	font-size:32rpx;
+	opacity: 0;
+}
+.pop_up_inner{
+	width: 90%;
+	height: 90%;
+	background: #fff;
+	position:absolute;
+	left:50%;
+	top: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	border-radius: 7rpx;
+	overflow: hidden;
+}
+.pop_up_title{
+	text-align: center;
+	line-height: 100rpx;
+	border-bottom: 1px solid #eceaea;
+}
+.pop_up_text{
+	padding:30rpx;
+	line-height: 54rpx;
+	box-sizing: border-box;
+	max-height: 900rpx;
+	text-indent:2em;
+}
+.close_icon{
+	position: absolute;
+	right: 30rpx;
+	top: 25rpx;
+	width: 50rpx;
+	height: 50rpx;
+}

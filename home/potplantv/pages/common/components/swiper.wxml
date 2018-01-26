@@ -1,0 +1,10 @@
+<template name="swiper">
+	<swiper indicator-dots="{{swiper.indicatorDots}}" circular="{{swiper.circular}}"
+	  autoplay="{{swiper.autoplay}}" interval="{{swiper.interval}}" duration="{{swiper.duration}}">
+	  <block wx:for="{{imgUrls}}" wx:key="">
+	    <swiper-item>
+	      <image src="https://pot.find360.cn/{{item}}" mode="aspectFit" data-img="{{item}}" catch:tap="changeBig" class="slide-image"/>
+	    </swiper-item>
+	  </block>
+	</swiper>
+</template>

@@ -1,0 +1,7 @@
+<!--index.wxml-->
+<import src="../../../common/components/form.wxml"></import>
+<view>
+	<view>
+		<template is="form" data="{{imgArr:imgArr,formInfo:formInfo,inputArr:inputArr,formFomat:formFomat, subDate:subDate, subTime:subTime, imgLength: 1, selectIndex: selectIndex, isPop:isPop, bigImg:bigImg}}"/>
+	</view>
+</view>

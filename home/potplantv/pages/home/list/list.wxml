@@ -1,0 +1,24 @@
+<view class="box">
+	<view class="box-wrap">
+		<view class="box-search">
+			<image src="/image/search.png" catchtap="search"></image>
+			<input type="text" id="search_input" bindinput="inputChange" placeholder="请输入盆栽名称"></input>
+		</view>
+	</view>
+	<view class="list-title"><text>盆栽列表</text></view>
+	<view class="list-plant">
+		<block wx:for="{{lists}}" wx:key="">
+			<view class="li" wx:if="{{index%2==0}}" data-id="{{item.id}}" catchtap="showIndex">
+				<image src="{{listImgs[index]}}" mode="aspectFit"></image>
+				<text>盆栽名称:{{item.name}}</text>
+				<text>管理员:{{item.real_name}}</text>
+			</view>
+			<view class="li lar" wx:else="" data-id="{{item.id}}" catchtap="showIndex">
+				<image src="{{listImgs[index]}}" mode="aspectFit"></image>
+				<text>盆栽名称:{{item.name}}</text>
+				<text>管理员:{{item.real_name}}</text>
+			</view>
+		</block>
+	</view>
+	<view class="loading-list">{{loadComplete ? '已加载完成' : '正在加载数据...'}}</view>
+</view>

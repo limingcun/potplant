@@ -1,0 +1,41 @@
+<import src="../../common/components/nav.wxml"></import>
+<import src="../../common/components/hpic.wxml"></import>
+<import src="../../common/components/swiper.wxml"></import>
+<view>
+	<view class="plant-pic">
+		<view class="m1">
+			<view>
+				<image src="{{tapImg}}" background-size="cover"></image>
+			</view>
+		</view>
+		<view class="hpic-text">
+			<view class="hpic">
+				<template is="hpic" data="{{imgInfo:userInfo.avatarUrl}}"/>
+			</view>
+			<view class="text">
+				<text>{{userInfo.nickName}}</text>
+			</view>
+		</view>
+	</view>
+	<view class="view-nav">
+		<template is="nav" data="{{plant: plantS}}"/>
+	</view>
+	<view class="operate-info">
+		<block wx:for="{{operate}}" wx:key="key">
+			<view class="operate-div">
+				<view class="operate-box">
+					<view class="cb">
+						<text class="t1 tb fl">{{operateType}}</text>
+						<text class="t2 tb fr">{{item.datetime}}</text>
+					</view>
+					<view class="desc">
+						<text decode="{{true}}" space="{{true}}" style="text-indent:2em;">{{item.info}}</text>
+					</view>
+					<view class="pic" wx:if="{{item.img}}">
+						<template is="swiper" data="{{imgUrls:imgUrls[index],swiper:swiper}}"/>
+					</view>
+				</view>
+			</view>
+		</block>
+	</view>
+</view>

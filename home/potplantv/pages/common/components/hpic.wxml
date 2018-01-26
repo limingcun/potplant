@@ -1,0 +1,5 @@
+<template name="hpic">
+	<view class='user-avatar'>
+		<image background-size="cover" wx:if="{{imgInfo}}" src='{{imgInfo}}'></image>
+	</view>
+</template>

@@ -13,8 +13,8 @@ use DB;
 class MangeController extends Controller
 {
     /*
-     * 盆栽操作列表数据
-     * params:[plant_id:盆栽id,startDate:开始时间,endDate:结束时间,page:分页]
+     * 盆栽管理员列表数据
+     * params:[plant_id:盆栽id,page:分页]
      */
     public function index(Request $request) {
         $plant_id = IQuery::cleanInput($request->plant_id);
@@ -33,7 +33,7 @@ class MangeController extends Controller
     }
     
     /*
-     * 编辑盆栽列表数据
+     * 编辑盆栽管理员数据
      * id:列表id数据
      */
     public function edit($id) {
@@ -42,7 +42,7 @@ class MangeController extends Controller
     }
     
     /*
-     * 删除盆栽操作列表数据
+     * 删除盆栽管理员数据
      * id:列表id数据
      */
     public function destroy($id) {
@@ -75,6 +75,7 @@ class MangeController extends Controller
     
     /*
      * 上传图片接口
+     * return 图片路径
      */
     public function uploadImg(Request $request)
     {

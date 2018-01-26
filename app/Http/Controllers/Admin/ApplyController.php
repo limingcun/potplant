@@ -15,18 +15,19 @@ class ApplyController extends Controller
     /*
      * 用户申请列表列表数据
      * page页数
+     * state 状态
      */
     public function index(Request $request) {
         $list = User::where('type','!=',1);
-        $page = IQuery::cleanInput($request->page);
+        $page = IQuery::cleanInput($request->page); // 去掉特殊字符，获取分页
         $state = $request->state;
         $page = isset($page) ? $page : '';
         if($page != '') {
-            $request->merge(['page'=>$page]);
+            $request->merge(['page'=>$page]);  // 分页查询
         }
         $state = isset($state) ? $state : '';
         if ($state != '') {
-            $list = $list->where('apply_state',$state);
+            $list = $list->where('apply_state',$state);  // 状态查询
         }
         $list = $list->select('id','real_name','img','sex','address','phone','email','apply_state')
                       ->orderBy('id','desc')->paginate(config('app.page'));
@@ -50,7 +51,7 @@ class ApplyController extends Controller
      * 更改申请状态
      */
     public function changeState(Request $request) {
-        $id = IQuery::cleanInput($request->id);
+        $id = IQuery::cleanInput($request->id); // 获取要更改状态id
         $user = User::findOrFail($id);
         $user->apply_state = 1;
         if ($user->save()) {

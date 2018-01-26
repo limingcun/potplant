@@ -1,0 +1,46 @@
+.navs {
+	width: 90%;
+	height: 200rpx;
+	margin: 0 auto;
+	/*border: 1px red solid;*/
+}
+.nav-item {
+	width: 25%;
+	margin-top: 20rpx;
+}
+.nav-item .i1 {
+	width: 105.3rpx;
+	height: 55.9rpx;
+	margin-bottom: 25rpx;
+}
+.nav-item .i2 {
+	width: 58.5rpx;
+	height: 65rpx;
+	margin-left: 55rpx;
+	margin-bottom: 15rpx;
+}
+.nav-item .t2 {
+	margin-left: 45rpx;
+}
+.nav-item .i3 {
+	width: 67.6rpx;
+	height: 63.7rpx;
+	margin-left: 70rpx;
+	margin-bottom: 15rpx;
+}
+.nav-item .t3 {
+	margin-left: 50rpx;
+}
+.nav-item .i4 {
+	width: 57.2rpx;
+	height: 61.1rpx;
+	margin-right: 20rpx;
+	margin-bottom: 19rpx;
+}
+.nav-item .t4 {
+	margin-right: 15rpx;
+}
+.nav-item text {
+	margin-left: 30rpx;
+	color: #868686;
+}

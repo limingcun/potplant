@@ -1,0 +1,28 @@
+<import src="../../../common/components/buildSearch.wxml"></import>
+<view class="operate-div">
+	<view>
+		<template is="buildSearch" data="{{maxEnd:maxEnd, startDateIp:startDateIp, startDate:startDate, minStart:minStart, endDateIp:endDateIp, endDate:endDate, startClass:startClass, endClass:endClass}}"/>
+	</view>
+	<view class="list-wrap">
+		<block wx:for="{{operates}}" wx:key="">
+			<view class="list-div">
+				<view class="list-data">
+					<view class="v1 fl">
+						<text class="t1 tv_el tb">{{item.info}}</text>
+						<text class="t2 tb">{{item.datetime}}</text>
+					</view>
+					<view class="v2 fl">
+						<block wx:for="{{operateImgs[index]}}" wx:key="">
+							<image src="https://pot.find360.cn/{{item}}" mode="aspectFit" data-img='{{item}}' catchtap="changeBig"></image>
+						</block>
+					</view>
+					<view class="v3 fr">
+						<image data-id="{{item.id}}" data-name="{{item.name}}" data-index="{{index}}" catchtap="openFormPage" src="/image/edit.png"></image>
+						<image data-id="{{item.id}}" data-name="{{item.name}}" data-index="{{index}}" catchtap="delOperateList" src="/image/del.png"></image>
+					</view>
+				</view>
+			</view>
+		</block>
+	</view>
+	<view class="loading-data">{{loadComplete ? '已加载完成' : '正在加载数据...'}}</view>
+</view>

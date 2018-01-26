@@ -1,0 +1,30 @@
+<!--index.wxml-->
+<view class="box">
+	<view class="box-image">
+		<swiper indicator-dots="{{swiper.indicatorDots}}" circular="{{swiper.circular}}" indicator-active-color="{{swiper.color}}"
+	  autoplay="{{swiper.autoplay}}" interval="{{swiper.interval}}" duration="{{swiper.duration}}">
+	  <block wx:for="{{imgUrls}}" wx:key="">
+	    <swiper-item>
+	      <image src="{{item}}" class="slide-image"/>
+	    </swiper-item>
+	  </block>
+	</swiper>
+	</view>
+	<view class="box-div">
+		<view class="box-hr"></view>
+		<image src="/image/index-text.png"></image>
+		<view class="box-nav">
+			<ul style="width: {{perBox[navBox.length].ulper}}">
+				<block wx:for="{{navBox}}" wx:key="">
+					<li style="width: {{perBox[navBox.length].liper}}" catchtap="{{item.catchtap}}">
+						<image class="{{item.class}}" src="{{item.img}}"></image>
+						<text>{{item.text}}</text>
+					</li>
+				</block>
+			</ul>
+		</view>
+	</view>
+	<view class="box-foot">
+		<text>{{isLogin}}</text>
+	</view>
+</view>

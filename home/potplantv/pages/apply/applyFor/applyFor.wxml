@@ -1,0 +1,28 @@
+<!--index.wxml-->
+<view class="box">
+	<image class="box-img" src="/image/apy-img.png"></image>
+	<view class="box-form">
+		<form bindsubmit="formSubmit">
+			<view class="form-title">
+				<text>申请使用</text>
+			</view>
+			<view class="form-div">
+				<block wx:for="{{formData}}" wx:key="">
+					<view class="input" wx:if="{{item.type=='text'}}">
+						<input type="text" placeholder="{{item.placeholder}}" name="{{item.name}}"></input>
+					</view>
+					<view class="input" wx:if="{{item.type=='select'}}">
+						<picker bindchange="bindPickerChange" value="{{selectIndex}}" range="{{item.selectArr}}" name="{{item.name}}">
+					        <view class="select-picker">
+					            {{item.selectArr[selectIndex]}}
+					        </view>
+				    	</picker> 
+					</view>
+				</block>
+			</view>
+			<view class="form-btn">
+				<button formType="submit">提交申请</button>
+			</view>
+		</form>
+	</view>
+</view>

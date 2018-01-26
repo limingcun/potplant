@@ -1,0 +1,69 @@
+@import "../../common/wxss/hpic.wxss";
+@import "../../common/wxss/comWxss.wxss";
+@import "../../common/wxss/nav.wxss";
+.plant-pic {
+	width: 100%;
+	position: relative;
+}
+.plant-pic .m1 swiper{
+	height: 460rpx;
+}
+.plant-pic .m1 image{
+	width: 100%;
+	height: 430rpx;
+}
+.hpic-text {
+	width: 100%;
+}
+.hpic-text .hpic {
+	position: absolute;
+	top: 325rpx;
+	left: 321rpx;
+}
+.hpic-text .text {
+	text-align: center;
+	font-size: 25rpx;
+	color: #888888;
+	margin-top: 55rpx;
+}
+.view-nav {
+	margin-top: 30rpx;
+	border-bottom: 30rpx solid #F7F8FA;
+}
+.operate-info {
+	width: 100%;
+	margin-top: 50rpx;
+}
+.operate-div {
+	width: 100%;
+	border-bottom: 1rpx solid #B9B4B4;
+	margin-bottom: 60rpx;
+}
+.operate-div:last-child {
+	border:none
+}
+.operate-box {
+	width: 90%;
+	margin: 0 auto;
+}
+.operate-box .t2 {
+	color: #78C7DD;
+	font-size: 30rpx;
+	line-height: 50rpx;
+}
+.operate-box .desc {
+	color: #888888;
+	font-size: 30rpx;
+	margin-top: 20rpx;
+	margin-bottom: 30rpx;
+}
+.operate-box .pic {
+	margin-bottom: 40rpx;
+}
+.operate-box .pic swiper {
+	height: 460rpx;
+}
+.operate-box .pic image {
+	width: 100%;
+	height: 430rpx;
+}

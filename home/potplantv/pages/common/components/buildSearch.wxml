@@ -1,0 +1,26 @@
+<template name="buildSearch">
+	<view class="plant-top">
+	  <view class="plant-head">
+	  	<view class="plant-build fl" data-type="new" catchtap="openFormPage">新建</view>
+	  	<view class="plant-time fr cb">
+	  		<view class="time-picker fl"> 
+			  	<picker mode="date" value="{{date}}" start="1978-01-01" end="{{maxEnd}}" name="searchDate" data-date="startDate" bindchange="bindDateChange">  
+				    <view class="picker">
+				       <image src="{{startDateIp}}" class="{{startClass}}" data-time="startDate" catchtap="clearTime"/>
+				       <text>{{startDate}}</text>
+				    </view>  
+			  	</picker>  
+	  		</view>
+	  		<view class="time-text fl">至</view>
+	  		<view class="time-picker fl ">  
+			  	<picker mode="date" value="{{date}}" start="{{minStart}}" end="2050-1-23" name="searchDate" data-date="endDate" bindchange="bindDateChange">  
+				    <view class="picker">
+				       <image src="{{endDateIp}}" class="{{endClass}}" data-time="endDate" catchtap="clearTime"/>
+				       <text>{{endDate}}</text>
+				    </view>  
+			  	</picker>  
+	  		</view>
+	  	</view>
+	  </view>
+	</view>
+</template>

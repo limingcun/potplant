@@ -1,0 +1,5 @@
+<!--index.wxml-->
+<view class="body-box">
+  <view class="home" data-id="{{plant_id}}" data-type="home" catchtap="showUrl"><image src="{{homeUrl}}"/></view>
+  <view class="admin" data-id="{{plant_id}}" data-type="admin" catchtap="showUrl"><image src="{{adminUrl}}"/></view>
+</view>

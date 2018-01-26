@@ -1,0 +1,96 @@
+Page {
+	background-color: #D1F2E1;
+	width: 100%;
+	height: 100%;
+}
+.box {
+	width: 100%;
+	height: 100%;
+}
+.box-image {
+	width: 100%;
+	height: 60%;
+}
+.box-image swiper {
+	height: 100%;
+	width: 100%;
+	text-align: center;
+}
+.box-image swiper image {
+	height: 90%;
+	width: 90%;
+	margin-top: 9%;
+}
+.box-div {
+	height: 28%;
+	width: 90%;
+	background-color: #F8F8F8; 
+	margin: 0 auto;
+	margin-top: 7%;
+	border-radius: 20rpx;
+}
+.box-hr {
+	height: 18%;
+}
+.box-div image {
+	width: 90%;
+	height: 35%;
+	display: block;
+	margin: 0 auto;
+}
+.box-nav {
+	width: 90%;
+	margin: 0 auto;
+	height: 30%;
+	margin-top: 3%;
+}
+.box-nav ul {
+	height: 100%;
+	display: block;
+	margin: 0 auto;
+}
+.box-nav ul li {
+	height: 100%;
+	display: block;
+	float: left;
+	text-align: center;
+	border-right: 1px solid silver;
+}
+.box-nav ul li:last-child {
+	border:none;
+}
+.box-nav ul li image {
+	margin-top: 15rpx;
+}
+.box-nav .class-nav1 {
+	height: 48rpx;
+	width: 55.2rpx;
+}
+.box-nav .class-nav2 {
+	height: 48rpx;
+	width: 48rpx;
+}
+.box-nav .class-nav3 {
+	height: 48rpx;
+	width: 48rpx;
+}
+.box-nav .class-nav4 {
+	height: 48rpx;
+	width: 75.6rpx;
+}
+.box-nav .class-nav5 {
+	height: 48rpx;
+	width: 42.947rpx;
+}
+.box-nav ul li text {
+	display: block;
+	font-size: 22rpx;
+	color: #747379;
+	margin-top: 10rpx;
+}
+.box-foot {
+	text-align: center;
+	margin-top: 3%;
+	font-size: 30rpx;
+	color: silver;
+}

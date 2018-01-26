@@ -1,0 +1,25 @@
+<import src="/pages/common/components/hpic.wxml"></import>
+<view class="operate-div">
+	<view>
+		<block wx:for="{{manges}}" wx:key="">
+			<view class="list-head"></view>
+			<view class="list-div">
+				<view class="list-data">
+					<view class="fl" style="margin-top: -30rpx;">
+						<template is="hpic" data="{{imgInfo:item.img}}"/>
+					</view>
+					<view class="v1 fl">
+						<text class="t1 tv_el tb">{{item.real_name}}{{}}</text>
+						<text class="t2 tb">{{item.created_at}}</text>
+					</view>
+					<view class="v3 fr">
+						<image wx:if="{{item.openid==openid}}" src="/image/edit.png" data-id="{{item.id}}" catchtap="openFormPage"></image>
+						<image wx:if="{{item.type==0}}" data-id="{{item.puid}}" data-name="{{item.name}}" data-index="{{index}}" catchtap="delMangeList" src="/image/del.png"></image>
+						<image wx:if="{{item.type==1}}" data-id="{{item.id}}" data-name="{{item.name}}" catchtap="inviMange" src="/image/yao.png"></image>
+					</view>
+				</view>
+			</view>
+		</block>
+	</view>
+	<view class="loading-data">{{loadComplete ? '已加载完成' : '正在加载数据...'}}</view>
+</view>

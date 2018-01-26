@@ -1,0 +1,28 @@
+<template name="nav">
+	<view class="navs">
+	    <view class="nav-item fl">
+	    	<navigator url="../operate/operate?type=water&plant={{plant}}">
+		    	<image class="nav-image tb i1" src="../../../image/watering.png"></image>
+		    	<text>浇水</text>
+		    </navigator>
+	    </view>
+	    <view class="nav-item fl">
+	    	<navigator url="../operate/operate?type=fertilize&plant={{plant}}">
+		    	<image class="nav-image tb i2" src="../../../image/fertilize.png"></image>
+		    	<text class="tb cb t2">施肥</text>
+	    	</navigator>
+	    </view>
+	    <view class="nav-item fl">
+	    	<navigator url="../mange/mange?type=admin&plant={{plant}}">
+		    	<image class="nav-image tb i3" src="../../../image/admin.png"></image>
+		    	<text class="tb cb t3">负责人</text>
+	    	</navigator>
+	    </view>
+	    <view class="nav-item fr">
+	    	<navigator url="../operate/operate?type=other&plant={{plant}}">
+		    	<image class="nav-image tb i4 fr" src="../../../image/other.png"></image>
+		    	<text class="tb t4 cb fr">其他</text>
+	    	</navigator>
+	    </view>
+	</view>
+</template>

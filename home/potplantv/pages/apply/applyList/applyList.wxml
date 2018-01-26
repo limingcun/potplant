@@ -1,0 +1,54 @@
+<!--index.wxml-->
+<view class="box">
+	<view class="box-wrap">
+		<view class="box-head">
+			<view class="list-title">
+				<text>申请列表</text>
+			</view>
+			<view class="list-search">
+				<picker bindchange="search" value="{{searchIndex}}" range="{{searchArr}}">
+			        <view>
+			            {{searchArr[searchIndex]}}
+			        </view>
+			    </picker> 
+			</view>
+		</view>
+	</view>
+	<view class="list-wrap">
+		<block wx:for="{{lists}}" wx:key="">
+			<view class="list-div">
+				<view class="tr">
+					<view class="d1">
+						<text>姓名：{{item.real_name}}</text>
+						<text>电话：{{item.phone}}</text>
+					</view>
+					<view class="d2">
+						<text class="{{item.apply_state ? 'check-text' : 'dis-text'}}">{{item.apply_state ? '已通过' : '未通过'}}</text>
+					</view>
+					<view class="d3">
+						<switch color="#49AE7E" checked="{{item.apply_state ? 'checked' : ''}}" disabled="{{item.apply_state ? 'checked' : ''}}" bindchange="switchChange" data-id="{{item.id}}" data-index="{{index}}"/>
+						<image class="m1" src="/image/show.png" data-index="{{index}}" catchtap="showApplyList"></image>
+						<image class="m2" src="/image/del.png" data-id="{{item.id}}" data-index="{{index}}" catchtap="applyListDel"></image>
+					</view>
+				</view>
+			</view>
+		</block>
+	</view>
+	<view class="loading-list">{{loadComplete ? '已加载完成' : '正在加载数据...'}}</view>
+	<!-- 弹出框 -->
+  <view class="view-pop-wrap" wx:if="{{isPop}}" catchtap="closePop"></view>
+  <view class="view-pop-qrcode" wx:if="{{isPop}}">
+  <view class="table">
+	  <block wx:for="{{listArr}}" wx:key="{{code}}">
+	    <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+	      <view class="td bd ht1">{{item.key}}</view>
+	      <view class="td ht2">{{item.val}}</view>
+	    </view>
+	    <view class="tr" wx:else="">
+	      <view class="td bd ht1">{{item.key}}</view>
+	      <view class="td ht2">{{item.val}}</view>
+	    </view>
+	  </block>
+	</view>
+  </view>
+</view>

@@ -38,8 +38,8 @@ class AuthController extends Controller
         $user = User::where('openid','=',$request->openid)->first();
         if (isset($user)) {
             if ($user->apply_state==1) {
-                $st = 'wx_login_'.$this->createRandomStr(32);
-                IQuery::redisSet('st_'.$request->openid, $st, 3600 * 24);
+                $st = 'wx_login_'.$this->createRandomStr(32); //随机生成32个字符串
+                IQuery::redisSet('st_'.$request->openid, $st, 3600 * 24);  //使用redis设置过期时间缓存，时间为24小时
                 $user->st = $st;
                 return response()->json($user);
             } else {

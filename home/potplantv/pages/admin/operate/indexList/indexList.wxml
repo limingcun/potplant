@@ -1,0 +1,21 @@
+<view>
+	<view class="list-line"></view>
+	<block wx:for="{{listArr}}" wx:key="">
+		<view class="list-index" wx:if="{{item.type!='admin'||adminShow}}">
+			<view class="list-wrap cb">
+				<view class="t1 fl">
+					<image src="{{item.img}}" class="{{item.class}}"></image>
+				</view>
+				<view class="t2 fl">{{item.info}}</view>
+				<view class="t3 fr">
+					<image src="/image/make.png" data-id="{{plant_id}}" data-type="{{item.type}}" catchtap="showOperate"></image>
+				</view>
+			</view>
+		</view>
+	</block>
+	<!-- 弹出框 -->
+	<view class="view-pop-wrap" wx:if="{{isPop}}" catchtap="closePop"></view>
+	<view class="view-pop-qrcode" wx:if="{{isPop}}">
+		<image src="{{qrcode}}"></image>
+	</view>
+</view>

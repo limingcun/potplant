@@ -1,0 +1,31 @@
+<!--index.wxml-->
+<import src="/pages/common/components/hpic.wxml"></import>
+<import src="/pages/common/components/buildSearch.wxml"></import>
+<view class="plant-div">
+	<view>
+		<template is="buildSearch" data="{{maxEnd:maxEnd, startDateIp:startDateIp, startDate:startDate, minStart:minStart, endDateIp:endDateIp, endDate:endDate, startClass:startClass, endClass:endClass}}"/>
+	</view>
+	<view class="list-wrap">
+		<block wx:for="{{plants}}" wx:key="">
+			<view class="plant-list">
+				<view class="list-data">
+					<view class="plant-img fl">	
+						<view class="fl" style="margin-top: -15rpx;" data-type="{{item.type}}" data-name="{{item.name}}" data-id="{{item.id}}" catchtap="showList">
+							<template is="hpic" data="{{imgInfo:imgPic[index]}}"/>
+						</view>
+						<view class="plant-name-time fl">
+							<text class="t1 tb">{{item.name}}</text>
+							<text class="t2 tb">{{item.created_at}}</text>
+						</view>
+					</view>
+					<view class="list-operate fr">
+						<image src="/image/show.png" data-id="{{item.id}}" catchtap="showIndex"></image>
+						<image wx:if="{{item.type==1}}" src="/image/edit.png" data-type="edit" data-id="{{item.id}}" catchtap="openFormPage"></image>
+						<image wx:if="{{item.type==1}}" src="/image/del.png" data-id="{{item.id}}" data-name="{{item.name}}" data-index="{{index}}" catchtap="delPlantList"></image>
+					</view>
+				</view>
+			</view>
+		</block>
+	</view>
+	<view class="loading-data">{{loadComplete ? '已加载完成' : '正在加载数据...'}}</view>
+</view>

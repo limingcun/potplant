@@ -1,0 +1,60 @@
+<!--index.wxml-->
+<import src="../../common/components/nav.wxml"></import>
+<import src="../../common/components/hpic.wxml"></import>
+<import src="../../common/components/swiper.wxml"></import>
+<view class="body-box">
+  <view class="body-head">
+  	<view class="head">
+	  	<view class="head-name fl">
+	  		<text class="t1 tb">{{forTime.modate}} {{forTime.weday}}</text>
+	  		<text class="t2 tb">{{plant.name}}</text>
+	  	</view>
+	  	<view class="head-pic fr">
+	  		<view class="fr">
+				<template is="hpic" data="{{imgInfo:userInfo.avatarUrl}}"/>
+			</view>
+	  	</view>
+  	</view>
+  </view>
+  <view class="body-middle">
+  	<view style="margin-top: 40rpx">
+		<template is="nav" data="{{plant: plantS}}"/>
+	</view>
+	<!-- 盆栽图片轮播图 -->
+  	<view class="plant-img">
+  		<view style="width:90%;margin: 0 auto">
+			<template is="swiper" data="{{imgUrls:imgUrls,swiper:swiper}}"/>
+		</view>
+  	</view>
+  </view>
+  <view class="body-foot">
+  	<view class="plant-info">
+  		<view class="h1">{{plant.name}}介绍</view>
+  		<view class="v1">
+  			<text decode="{{true}}" space="{{true}}">{{plant.intro}}
+  			</text>
+  		</view>
+  		<view class="s1" catchtap="lookSourceFn" data-info="{{plant.intro}}" data-name="{{plant.name}}">查看更多></view>
+  	</view>
+  </view>
+  <view class="body-foot-end">
+  	<view class="foot-data">
+  		<block wx:for="{{plantTab}}" wx:key="">
+	  		<view class="v1">{{item.key}}</view>
+	  		<view class="v2">{{item.value}}</view>
+	  	</block>
+  	</view>
+  </view>
+
+  <!-- 弹出框 -->
+	<view animation="{{animationData}}" class="pop_up_wrap" wx:if="{{isShowPop.bol}}">
+		<view class="pop_up_inner">
+			<image class="close_icon" catchtap="closeFn" src="../../../image/x.png"></image>
+			<view class="pop_up_title">{{isShowPop.title}}</view>
+			<scroll-view wx:if="{{isShowPop.type === 'source'}}" scroll-y="true" class="pop_up_text">
+				<text decode="{{true}}" space="{{true}}">{{isShowPop.text}}
+  				</text>
+			 </scroll-view>
+		</view>
+	</view>
+</view>

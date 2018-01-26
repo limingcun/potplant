@@ -1,0 +1,44 @@
+@import "../../common/wxss/comWxss.wxss";
+@import "../../common/wxss/hpic.wxss";
+@import "../../common/wxss/buildSearch.wxss";
+.list-wrap {
+	margin-top: 100rpx;
+}
+.plant-list {
+	width: 100%;
+	height: 180rpx;
+	border-bottom: 1rpx solid #DCDCDC;
+}
+.list-data {
+	width: 90%;
+	margin: 0 auto;
+}
+.plant-img {
+	margin-bottom: 30rpx;
+}
+.plant-name-time {
+	margin-top: 50rpx;
+	margin-left: 25rpx;
+}
+.plant-name-time .t1 {
+	font-size: 30rpx;
+}
+.plant-name-time .t2 {
+	font-size: 25rpx;
+}
+.list-operate {
+	width: 250rpx;
+	height: 180rpx;
+}
+.list-operate image{
+	width: 51rpx;
+	height: 52rpx;
+	margin-top: 65rpx;
+	margin-left: 33rpx;
+}
+.loading-data {
+	margin: 20rpx 0 60rpx 0;
+	color: #A09898;
+	text-align: center;
+	font-size: 30rpx;
+}
